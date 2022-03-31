@@ -10,7 +10,7 @@
 	<div class="content">
 		<div class="page-inner">
 			<div class="page-header">
-				<h4 class="page-title">RSA Public Key Encryption</h4>
+				<h4 class="page-title">RSA 공개키 암호화</h4>
 				<ul class="breadcrumbs">
 					<li class="nav-home">
 						<a href="#">
@@ -21,13 +21,13 @@
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">Encrypt/Decrypt</a>
+						<a href="#">암/복호화</a>
 					</li>
 					<li class="separator">
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">Public Key(Asymmetric)</a>
+						<a href="#">공개키암호화</a>
 					</li>
 				</ul>
 			</div>
@@ -43,21 +43,22 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Encrypt Text with Public Key</h4>
+							<h4 class="card-title">파일 암호화</h4>
 							
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<p>RSA(Rivest-Shamir-Adleman) is an Asymmetric encryption technique that uses two different keys as public and private keys to perform the encryption and decryption. With RSA, you can encrypt sensitive information with a public key and a matching private key is used to decrypt the encrypted message. Asymmetric encryption is mostly used when there are 2 different endpoints are involved such as VPN client and server, SSH, etc.</p>
-								<p>Below is an online tool to perform RSA encryption and decryption as a RSA calculator.</p>
-								<p>For Java implementation of RSA, you can follow this article.</p>
-								<p>First, we require public and private keys for RSA encryption and decryption. Hence, below is the tool to generate RSA key online. It generates RSA public key as well as the private key of size 512 bit, 1024 bit, 2048 bit, 3072 bit and 4096 bit with Base64 encoded.</p>
-								<p>By default, the private key is generated in PKCS#8 format and the public key is generated in X.509 format.</p>
+								<p>RSA(Rivest-Shamir-Adleman)는 대표적인 비대칭키/공개키 알고리즘으로, '공개키'와 '개인키' 두 갸의 키를 각각 암호화와 복호화에 사용합니다. 
+									RSA 역시 중요 데이터를 공개키로 암호화하며, 이와 대응되는 개인키로 복호화가 가능합니다. 
+									이런 특성으로 SSL, SSH, S/MIME 등 단대단 암호화에 주로 사용됩니다. .</p>
+								<p>이 사이트에서는 RSA 알고리즘을 이용한 파일 암복호화 기능을 제공합니다. </p>
+								<p>먼저 공개키(인증서)와 개인키가 준비되어 있어야 합니다</p>
+								<p>일반적으로 개인키는 PKCS#8 포멧이며 공개키는 X.509 인증서 포멧을 사용합니다. </p>
 							</div>
 							<form method="post" action="" enctype="multipart/form-data">
 							
 								<div class="form-group">
-									<label for="exampleFormControlFile1">Message File</label>
+									<label for="exampleFormControlFile1">원본 파일</label>
 								    <input type="file" name="inputfile" class="form-control-file" id="inputfile" required>
 									{% if errtype == 'inputfileerror' %}
 										<p class="text-danger">Error : {{ errmsg }}</p>
@@ -65,7 +66,7 @@
 								</div>
 
 								<div class="form-group">
-									<label for="exampleFormControlFile1">Key File(Certificate/Private Key)</label>
+									<label for="exampleFormControlFile1">키 파일(암호화: 인증서, 복호화:개인키)</label>
 								    <input type="file" name="keyfile" class="form-control-file" id="keyfile" required>
 									{% if errtype == 'keyfileerror' %}
 										<p class="text-danger">Error : {{ errmsg }}</p>
@@ -73,7 +74,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="password">Input password</label>
+									<label for="password">개인키 패스워드</label>
 									<input type="password" class="form-control" id="inpass"  name="inpass" placeholder="Private key password">
 								</div>
 								
@@ -81,11 +82,11 @@
 									<p class="demo">
 											
 										<button class="btn btn-primary btn-round btn-border" type="submit" name="action" value="enc"> <span class="btn-label"><i class="fas fa-lock"></i></span>
-											Encrypt with Certificate
+											공개카(인증서)로 암호화
 										</button>
 
 		    							<button class="btn btn-secondary btn-round btn-border" type="submit" name="action" value="dec" ><span class="btn-label"><i class="fas fa-lock-open"></i></span>
-											Decrypt with Private Key
+											개인키로 복호화
 										</button>
 									</p>
 								</div>
