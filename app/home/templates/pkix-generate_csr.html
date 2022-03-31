@@ -1,0 +1,343 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  PKIX,  CSR, Cerficate Signing Request {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<form method="post" action="" enctype="multipart/form-data">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Certificate Signing Request</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">PKIX</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">CSR Generator</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-danger">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					ERROR: {{errmsg }}
+ 			</div>
+ 			{% endif %}
+
+
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Private Key</h4>
+						</div>
+						<div class="card-body">
+
+
+
+								<div class="form-group">
+
+									<div class="form-gropup">
+										<span class="h4">CSR(Cerficate Signing Request)</span>
+										<ul>
+											<li>
+												<p>A certificate request consists of three parts: "certificate request information", a signature algorithm identifier, and a digital signature for the certificate request information. The authentication request information consists of a set of properties that provide the entity's distinguished name, the entity's public key, and other information about the entity.</p>
+											</li>
+										</ul>
+									</div>
+		
+									<div class="form-gropup">
+										<span class="h4">Distinguished name</span>
+										<ul>
+											<li>
+												<p>Distinguished name (DN) is a term that describes the identifying information in a certificate and is part of the certificate itself. A certificate contains DN information for both the owner or requestor of the certificate (called the Subject DN) and the CA that issues the certificate (called the Issuer DN). Depending on the identification policy of the CA that issues a certificate, the DN can include a variety of information.</p>
+											</li>
+										</ul>
+									</div>
+
+
+									<div class="form-check">
+										<label for="exampleFormControlFile1">Private Key File</label>
+										<input type="file" name="inputfile" class="form-control-file" id="prikeyfile">
+									</div>
+
+								
+									
+									<div class="form-check">
+										<label>Private Key File Format: </label>
+										<label class="form-radio-label">
+											<input class="form-radio-input" type="radio" name="inform" value="PEM" checked="">
+											<span class="form-radio-sign">PEM</span>
+										</label>
+	
+										<label class="form-radio-label">
+											<input class="form-radio-input" type="radio" name="inform" value="DER" >
+											<span class="form-radio-sign">DER</span>
+										</label>
+									</div>
+
+									<div class="form-group ">
+										
+										<div class="form-check">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" name="encrypt_option" value="enc">
+												<span class="form-check-sign">Encrypted Private Key</span>
+											</label>
+										</div>
+										<input type="password" class="form-control" id="inpass"  name="inpass" aria-label="input password" placeholder="Password">
+									</div>
+								</div>
+
+						</div> 
+					</div><!--card2-->
+
+
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Distinguished Name(DN)</h4>
+						</div>
+
+						<div class="card-body">
+							<div class="form-group">
+								<div class="form-group">
+									<label>Distinguished Name</label>
+									<input type="text" class="form-control" placeholder="/C=KR/CN=user/emailAddress=user@email.com" name="subj" aria-label="dn" aria-describedby="basic-addon1">
+									<div class="form-group">
+										<details>
+											<summary>
+												How to set the certificate DN
+											</summary>
+											<span>
+												<div class="form-group">
+													<ul>
+														<li>Sample) "/C=KR/O=pki studio/CN=User Name/emailAddress=user@mail.addr/L=local/OU=userOrgUnut/..."</li>
+														<li>DN Field</li>
+														<ul>
+															<li>C: Country</li>
+															<li>ST: State</li>
+															<li>L: Locality</li>
+															<li>O: Organization</li>
+															<li>OU: Organization Unit</li>
+															<li>CN: Common Name</li>
+															<li>emailAddress: Email Address</li>
+														</u>
+													</ul>
+												</div>
+											</span>
+	
+										</details>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label>Validity(days)</label>
+										<input type="text" class="form-control" placeholder="365" name="days" aria-label="days" aria-describedby="basic-addon1">
+								</div>
+
+								<div class="form-group">
+									<label>Subject Alternative Name(SAN)</label>
+									<input type="text" class="form-control" placeholder="*.google.com,*.naver.com" aria-label="days" name="subjectaltname" aria-describedby="basic-addon1">
+									<!--p class="text-primary">Ex) DNS:foo.bar.co.kr,DNS:www.domain.name,IP:127.50.50.50</p-->
+									<div class="form-group">
+										<details>
+											<summary>
+												How to set SubjectAltName field
+											</summary>
+											<span>
+												<div class="form-group">
+													<ul>
+														<li>It can add 'Subject Alt Name' field</li>
+														<li>In addition to the base DN, alternative names such as DNS and IP can be additionally included.</li>
+													</ul>
+												</div>
+											</span>
+	
+										</details>
+									</div>
+								</div>
+
+								<div class="form-check">
+									<label>Certificate Version</label>
+									<label class="form-radio-label">
+										<input class="form-radio-input" type="radio" name="version" value="v3" checked="">
+										<span class="form-radio-sign">V3</span>
+									</label>
+
+									<label class="form-radio-label">
+										<input class="form-radio-input" type="radio" name="version" value="v2" >
+										<span class="form-radio-sign">V2</span>
+									</label>
+								</div>
+			
+								<div class="form-group">
+									<button class="btn btn-default btn-round btn-border" type='submit' name='action' value='csr'><span class="btn-label"><i class="fa fa-check"></i></span>
+										Generate Key Pair and CSR
+									</button>
+									<button class="btn btn-primary  btn-round btn-border" type='submit' name='action' value='certificate' id='gen_pkey'><span class="btn-label"><i class="fa fa-check"></i></span>
+										Generate Key Pair, CSR and X509 Certificate
+									</button>
+								</div>
+
+								<div class="form-group">
+									<details>
+										<summary>
+											details>summary
+										</summary>
+										<span>
+											this is span
+											<button class="btn btn-primary" type='submit' id='gen_pkey'><span class="btn-label"><i class="fa fa-check"></i></span>
+												span button X509 Certificate
+											</button>
+										</span>
+
+									</details>
+								</div>
+							</div>
+								
+
+								
+							</div>
+						</div> 
+					</div><!--card-->
+
+				</div>
+				
+
+					{%if csr_pem%}
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">CSR PEM</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<textarea class="form-control" id="pem-data-parsed" rows="5" name="csr_pem" style="{{env.textarea_style}}">{% autoescape false %}{{csr_pem}}{% endautoescape %}</textarea>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-secondary btn-xs" type='submit' name="action" value='download_csr_pem'><span class="btn-label"><i class="fa fa-check"></i></span>Download</button>
+								</div>
+							</div>	
+							
+						</div>
+					{%endif%}
+
+					{%if csr_pem_text%}
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">CSR TEXT</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<textarea class="form-control" id="pem-data-parsed" rows="10" name="csr_pem_text" style="{{env.textarea_style}}">{% autoescape false %}{{csr_pem_text}}{% endautoescape %}</textarea>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-secondary btn-xs" type='submit' name="action" value='download_csr_pem_text'><span class="btn-label"><i class="fa fa-check"></i></span>Download</button>
+								</div>
+							</div>	
+						</div>
+	  				{%endif%}
+
+					{%if cert_pem%}
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">CERTIFICATE PEM</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<textarea class="form-control" id="pem-data-parsed" rows="5"  name="cert_pem" style="{{env.textarea_style}}">{% autoescape false %}{{cert_pem}}{% endautoescape %}</textarea>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-secondary btn-xs" type='submit' name="action" value='download_cert_pem'><span class="btn-label"><i class="fa fa-check"></i></span>Download</button>
+								</div>
+							</div>	
+						</div>
+	  				{%endif%}
+
+					{%if cert_pem_text%}
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">CERTIFICATE TEXT</h4>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<textarea class="form-control" id="pem-data-parsed" rows="10" name="cert_pem_text" style="{{env.textarea_style}}">{% autoescape false %}{{cert_pem_text}}{% endautoescape %}</textarea>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-secondary btn-xs" type='submit' name="action" value='download_cert_pem_text'><span class="btn-label"><i class="fa fa-check"></i></span>Download</button>
+								</div>
+							</div>	
+						</div>
+	  				{%endif%}
+
+					  <div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Additional Information</h4>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<span class="h4">Subject Alternative Name</span>
+										<ul>
+											<li>
+												<p>A SAN or subject alternative name is a structured way to indicate all of the domain names and IP addresses that are secured by the certificate. Included on the short list of items that are considered a SAN are subdomains and IP addresses.</p>
+											</li>
+
+											<li>
+												<p>When additional actions on a website need to be secured, the SANs need to be included on an SSL/TLS certificate so that the DNS server can resolve the IP address to the domain name. This will give the page the HTTPS indicator that meets browser guidelines and that give visitors confidence to transact on your website.</p>
+											</li>
+											<li>
+												<p>This is what the SANs would like in the certificate details:</p>
+												<ul>
+													<li>SAN 1: DNS Name=example.com</li>
+													<li>SAN 2: DNS Name=www.example.com</li>
+													<li>SAN 3: DNS Name=example.net</li>
+													<li>SAN 4: DNS Name=mail.example.com</li>
+													<li>SAN 5: DNS Name=support.example.com</li>
+													<li>SAN 6: DNS Name=example2.com</li>
+													<li>SAN 7: IP Address=93.184.216.34</li>
+													<li>SAN 8: IP Address= 2606:2800:220:1:248:1893:25c8:1946</li>
+												</ul>
+											</li>
+											<li>
+												<p>The SANs information appears in the SSL/TLS certificate details that can be viewed by clicking on the locked padlock in the address bar of most web browsers.</p>
+											</li>
+										</ul>
+
+							</div>
+						</div>	
+					</div>
+
+					
+				</div>
+				
+			
+			</div>
+
+		</div>
+		</form>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

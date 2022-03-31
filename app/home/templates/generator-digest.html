@@ -1,0 +1,220 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  Message Digest, Encryption, Decryption, Encode, Decode   {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Message Digest</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Generators</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Digest/HMAC</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					ERROR: {{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Message Digest, HMAC</h4>
+							
+						</div>
+						<div class="card-body">
+						<form method="post" action="">	
+							<div class="form-group">
+								<span class="h4">Details</span>
+								<ul>
+									<li>Any cryptographic hash function, such as SHA-2 or SHA-3, may be used in the calculation of an HMAC; the resulting MAC algorithm is termed HMAC-X, where X is the hash function used (e.g. HMAC-SHA256 or HMAC-SHA3-512). The cryptographic strength of the HMAC depends upon the cryptographic strength of the underlying hash function, the size of its hash output, and the size and quality of the key.</li>
+									<li>HMAC uses two passes of hash computation. The secret key is first used to derive two keys – inner and outer. The first pass of the algorithm produces an internal hash derived from the message and the inner key. The second pass produces the final HMAC code derived from the inner hash result and the outer key. Thus the algorithm provides better immunity against length extension attacks.</li>
+									<li>An iterative hash function breaks up a message into blocks of a fixed size and iterates over them with a compression function. For example, SHA-256 operates on 512-bit blocks. The size of the output of HMAC is the same as that of the underlying hash function (e.g., 256 and 512 bits in the case of SHA-256 and SHA3-512, respectively), although it can be truncated if desired.</li>
+									<div class="form-group">
+								
+										<div class="container float-left col-md-12">
+											<img src="/static/assets/img/SHAhmac.svg.png" class="img-responsive" width="600">
+										</div>
+									</div>
+										
+									<li>HMAC does not encrypt the message. Instead, the message (encrypted or not) must be sent alongside the HMAC hash. Parties with the secret key will hash the message again themselves, and if it is authentic, the received and computed hashes will match.</li>
+									<li>The definition and analysis of the HMAC construction was first published in 1996 in a paper by Mihir Bellare, Ran Canetti, and Hugo Krawczyk, and they also wrote RFC 2104 in 1997. The 1996 paper also defined a nested variant called NMAC. FIPS PUB 198 generalizes and standardizes the use of HMACs. HMAC is used within the IPsec, SSH and TLS protocols and for JSON Web Tokens.</li>
+								</ul>
+							</div>
+
+							<div class="form-group">
+								<div class="form-group">
+									<label for="defaultSelect">Digest Algorithm </label>
+			
+									<select class="form-control" id="dgst_alg" name="dgst_alg">
+										
+										<option value="sha256">sha256</option>
+										<option value="sha3-256">sha3-256</option>
+										<option value="sha224">sha224</option>
+										<option value="sha3-224">sha3-224</option>
+										<option value="sha3-384">sha3-384</option>
+										<option value="sha512">sha512</option>
+										<option value="sha512-256">sha512-256</option>
+
+										<option value="md4">md4</option>
+										<option value="md5-sha1">md5-sha1</option>
+										<option value="mdc2">mdc2</option>
+										<option value="ripemd">ripemd</option>
+										<option value="ripemd160">ripemd160</option>
+										<option value="rmd160">rmd160</option>
+										<option value="sha1">sha1</option>
+										
+										<option value="shake128">shake128</option>
+										<option value="shake256">shake256</option>
+										<option value="sm3">sm3</option>
+										<option value="ssl3-md5">ssl3-md5</option>
+										<option value="ssl3-sha1">ssl3-sha1 </option>
+										<option value="blake2b512" >blake2b512</option>
+										<option value="blake2s256">blake2s256</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+								    <textarea class="form-control" id="pem-data" rows="5" name="inputtext" required>{{inputtext}}</textarea>
+							    </div>
+
+								{% if errtype == 'inpass' %}
+								<div class="form-group has-error ">
+								{% else %}	
+								<div class="form-group">
+								{% endif %}	
+									<div class="input-group-append">
+										<div class="form-check">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" name="hmac_checked" value="hmac">
+												<span class="form-check-sign">Generate hashed MAC with key</span>
+											</label>
+										</div>
+									</div>
+									
+									<input type="password" class="form-control" name="inpass" id="inpass" aria-label="Text input with dropdown button" placeholder="Password">
+								
+									
+								</div>
+
+								<div class="form-group">
+									<p class="demo">
+											
+										<button class="btn btn-default btn-round btn-border"   type="submit" name="action" value="encode"><span class="btn-label"><i class="fas fa-compress"></i></span>
+											Generate Digest
+										</button>
+										<!--button class="btn btn-primary"   type="submit" name="action" value="decode"><span class="btn-label"><i class="fas fa-lock-open"></i></span>
+											Decode 
+										</button-->	
+		    							<button class="btn btn-warning btn-round btn-border" type="submit" name="action" value="clear"><span class="btn-label"><i class="fas fa-circle-notch"></i></span>
+											Clear
+										</button>
+		
+									</p>
+								</div>
+
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Computed Message Digest</h4>
+							
+						</div>
+						<div class="card-body">
+							<p class="demo">
+								<div class="form-group">
+								    <textarea class="form-control" id="pem-data-parsed" rows="2">{% autoescape false %}{{result}}{% endautoescape %}
+									</textarea>
+							    </div>
+								
+							</p>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Additonal Information</h4>
+							
+						</div>
+						<div class="card-body">
+							
+							<div class="form-group">
+								<span class="h4">This definition is taken from RFC 2104:</span>
+								
+							</div>
+							<div class="form-group">
+								
+								<div class="container float-left col-md-12">
+									<img src="/static/assets/img/hmac_equation.png" class="img-responsive" width="500">
+								</div>
+							</div>
+							<div class="form-group">
+								<ul>
+									<li>H is a cryptographic hash function</li>
+									<li>m is the message to be authenticated</li>
+									<li>K is the secret key</li>
+									<li>K' is a block-sized key derived from the secret key, K; either by padding to the right with 0s up to the block size, or by hashing down to less than or equal to the block size first and then padding to the right with zeros</li>
+									<li>‖ denotes concatenation</li>
+									<li>⊕ denotes bitwise exclusive or (XOR)</li>
+									<li>opad is the block-sized outer padding, consisting of repeated bytes valued 0x5c</li>
+									<li>ipad is the block-sized inner padding, consisting of repeated bytes valued 0x36</li>
+								</ul>
+							</div>
+
+							<div class="form-group">
+								
+								<div class="container float-left col-md-12">
+									<img src="/static/assets/img/hmac_table.png" class="img-responsive" width="300">
+								</div>
+							</div>
+								
+							
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

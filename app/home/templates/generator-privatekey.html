@@ -1,0 +1,216 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  RSA Privat Key, Encryption Key, Decryption Key, Encode Key, Decode Key {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Private Key</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Generators</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">RSA Key</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-danger">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					{{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Generate Private Key</h4>
+						</div>
+
+						<div class="card-body">
+						<form method="post" action="">
+
+							<div class="form-gropup">
+								<ul>
+									<li>RSA (Rivest–Shamir–Adleman) is a public-key cryptosystem that is widely used for secure data transmission. It is also one of the oldest.</li>
+									<li>The acronym "RSA" comes from the surnames of Ron Rivest, Adi Shamir and Leonard Adleman, who publicly described the algorithm in 1977. An equivalent system was developed secretly in 1973 at GCHQ (the British signals intelligence agency) by the English mathematician Clifford Cocks. That system was declassified in 1997.</li>
+									<li>In a public-key cryptosystem, the encryption key is public and distinct from the decryption key, which is kept secret (private). An RSA user creates and publishes a public key based on two large prime numbers, along with an auxiliary value. The prime numbers are kept secret. Messages can be encrypted by anyone, via the public key, but can only be decoded by someone who knows the prime numbers.</li>
+									<li>The security of RSA relies on the practical difficulty of factoring the product of two large prime numbers, the "factoring problem". Breaking RSA encryption is known as the RSA problem. Whether it is as difficult as the factoring problem is an open question.[3] There are no published methods to defeat the system if a large enough key is used.</li>
+									<li>RSA is a relatively slow algorithm. Because of this, it is not commonly used to directly encrypt user data. More often, RSA is used to transmit shared keys for symmetric-key cryptography, which are then used for bulk encryption–decryption.</li>
+								</ul>
+
+
+							</div>
+
+							<div class="form-group">
+
+								<div class="form-group">
+									<label for="exampleFormControlFile1">RSA Key Length</label>
+									<select class="form-control form-control" id="keylen" name="keylen">
+										{% for element in rsa_param %}
+										<option value={{element}}>{{ element }}-bits </option>
+  										{% endfor %}
+									</select>
+								</div>	
+									
+
+								<div class="form-group ">
+									<div class="form-check">
+										<label class="form-check-label">
+											<input class="form-check-input" type="checkbox" name="encrypt_option" value="enc">
+											<span class="form-check-sign">Encrypt private key</span>
+										</label>
+									</div>
+									<div class="input-group">
+										<input type="password" class="form-control" id="inpass" aria-label="Text input with dropdown button" placeholder="Password">
+										<div class="input-group-append">
+											<button class="btn btn-default btn-border" type="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Encryption Algorithm</button>
+											<select class="form-control form-control" id="pem_selected" name="enc_alg">
+												{% for element in aes_alg_list %}
+      												<option value="{{element}}">{{ element}} </option>
+  												{% endfor %}
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<!--div class="form-group">
+									<div class="form-check">
+										<label class="form-check-label">
+											<input class="form-check-input" type="checkbox" name="encrypt_option" value="enc">
+											<span class="form-check-sign">Private key encryption password</span>
+										</label>
+									</div>
+								</div-->
+
+								<div class="form-group">
+									<button class="btn btn-primary" type='submit' name="action" value='generate'><span class="btn-label"><i class="fa fa-check"></i></span>
+										Generate Private Key
+									</button>
+								</div>
+							</div>
+						</form>
+
+						</div> <!--card-->
+
+						
+
+					</div>
+
+					{%if prikey_pem%}
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Private Key</h4>
+						</div>
+						<div class="card-body">
+							<form method="post" action="">
+								<div class="form-group">
+									<textarea class="form-control" id="pem-data-parsed"  name="prikey_pem" rows=10 style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;white-space:pre-wrap">{{prikey_pem}}
+									</textarea>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-secondary btn-xs" type='submit' name="action" value='download_prikey'><span class="btn-label"><i class="fa fa-check"></i></span>
+										download
+									</button>
+								</div>
+							</form>
+						</div>	
+						
+					</div>
+					{%endif%}
+
+					{%if pubkey_pem%}
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Public Key</h4>
+						</div>
+						<div class="card-body">
+							<form method="post" action="">
+								<div class="form-group">
+									<textarea class="form-control" id="pem-data-parsed"  name="pubkey_pem" rows=10 style="{{env.textarea_style}}">{{pubkey_pem}}
+									</textarea>
+									<!--re>{{pubkey_pem}}</pre-->
+								</div>
+								<div class="form-group">
+									<button class="btn btn-secondary btn-xs" type='submit' name="action" value='download_pubkey'><span class="btn-label"><i class="fa fa-check"></i></span>
+										download
+									</button>
+								</div>
+							</form>
+						</div>	
+
+					</div>
+	  				{%endif%}
+
+					  <div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Additonal information</h4>
+						</div>
+						<div class="card-body">
+							
+								
+									<h4>Key generation</h4>
+									<p>The keys for the RSA algorithm are generated in the following way:
+									</p>
+									<ol><li>Choose two distinct <a href="/wiki/Prime_number" title="Prime number">prime numbers</a> <i>p</i> and <i>q</i>.
+									<ul><li>For security purposes, the integers <i>p</i> and <i>q</i> should be chosen at random and should be similar in magnitude but differ in length by a few digits to make factoring harder.<sup id="cite_ref-rsa_2-1" class="reference"><a href="#cite_note-rsa-2"></a></sup> Prime integers can be efficiently found using a <a href="/wiki/Primality_test" title="Primality test">primality test</a>.</li>
+									<li><i>p</i> and <i>q</i> are kept secret.</li></ul></li>
+									<li>Compute <span class="nowrap"><i>n</i> = <i>pq</i></span>.
+									<ul><li><i>n</i> is used as the <a href="/wiki/Modular_arithmetic" title="Modular arithmetic">modulus</a> for both the public and private keys. Its length, usually expressed in bits, is the <a href="/wiki/Key_length" class="mw-redirect" title="Key length">key length</a>.</li>
+									<li><i>n</i> is released as part of the public key.</li></ul></li>
+									<li>Compute <i>λ</i>(<i>n</i>), where <i>λ</i> is <a href="/wiki/Carmichael%27s_totient_function" class="mw-redirect" title="Carmichael&#39;s totient function">Carmichael's totient function</a>. Since <i>n</i> = <i>pq</i>, <i>λ</i>(<i>n</i>) = <a href="/wiki/Least_common_multiple" title="Least common multiple">lcm</a>(<i>λ</i>(<i>p</i>),&#160;<i>λ</i>(<i>q</i>)), and since <i>p</i> and <i>q</i> are prime, <i>λ</i>(<i>p</i>) = <i><a href="/wiki/Euler_totient_function" class="mw-redirect" title="Euler totient function">φ</a></i>(<i>p</i>) = <i>p</i> − 1, and likewise <i>λ</i>(<i>q</i>) = <i>q</i> − 1. Hence <i>λ</i>(<i>n</i>) = lcm(<i>p</i> − 1, <i>q</i> − 1).
+									<ul><li><i>λ</i>(<i>n</i>) is kept secret.</li>
+									<li>The lcm may be calculated through the <a href="/wiki/Euclidean_algorithm" title="Euclidean algorithm">Euclidean algorithm</a>, since lcm(<i>a</i>,&#160;<i>b</i>) = |<i>ab</i>|/gcd(<i>a</i>,&#160;<i>b</i>).</li></ul></li>
+									<li>Choose an integer <i>e</i> such that <span class="nowrap">1 &lt; <i>e</i> &lt; <i>λ</i>(<i>n</i>)</span> and <span class="nowrap"><a href="/wiki/Greatest_common_divisor" title="Greatest common divisor">gcd</a>(<i>e</i>, <i>λ</i>(<i>n</i>)) = 1</span>; that is, <i>e</i> and <i>λ</i>(<i>n</i>) are <a href="/wiki/Coprime" class="mw-redirect" title="Coprime">coprime</a>.
+									<ul><li><i>e</i> having a short <a href="/wiki/Bit-length" title="Bit-length">bit-length</a> and small <a href="/wiki/Hamming_weight" title="Hamming weight">Hamming weight</a> results in more efficient encryption&#160;&#8211;&#32; the most commonly chosen value for <i>e</i> is <span class="nowrap">2<sup>16</sup> + 1 = <span class="nowrap"><span data-sort-value="7004655370000000000♠"></span>65<span style="margin-left:.25em;">537</span></span></span>. The smallest (and fastest) possible value for <i>e</i> is 3, but such a small value for <i>e</i> has been shown to be less secure in some settings.<sup id="cite_ref-Boneh99_15-0" class="reference"><a href="#cite_note-Boneh99-15"></a></sup></li>
+									<li><i>e</i> is released as part of the public key.</li></ul></li>
+									<li>Determine <i>d</i> as <span class="nowrap"><i>d</i> ≡ <i>e</i><sup>−1</sup> (mod <i>λ</i>(<i>n</i>))</span>; that is, <i>d</i> is the <a href="/wiki/Modular_multiplicative_inverse" title="Modular multiplicative inverse">modular multiplicative inverse</a> of <i>e</i> modulo <i>λ</i>(<i>n</i>).
+									<ul><li>This means: solve for <i>d</i> the equation <span class="nowrap"><i>d</i>⋅<i>e</i> ≡ 1 (mod <i>λ</i>(<i>n</i>))</span>; <i>d</i> can be computed efficiently by using the <a href="/wiki/Extended_Euclidean_algorithm" title="Extended Euclidean algorithm">extended Euclidean algorithm</a>, since, thanks to <i>e</i> and <i>λ</i>(<i>n</i>) being coprime, said equation is a form of <a href="/wiki/B%C3%A9zout%27s_identity" title="Bézout&#39;s identity">Bézout's identity</a>, where <i>d</i> is one of the coefficients.</li>
+									<li><i>d</i> is kept secret as the <i>private key exponent</i>.</li></ul></li></ol>
+									<p>The <i>public key</i> consists of the modulus <i>n</i> and the public (or encryption) exponent <i>e</i>. The <i>private key</i> consists of the private (or decryption) exponent <i>d</i>, which must be kept secret. <i>p</i>, <i>q</i>, and <i>λ</i>(<i>n</i>) must also be kept secret because they can be used to calculate <i>d</i>. In fact, they can all be discarded after <i>d</i> has been computed.<sup id="cite_ref-16" class="reference"><a href="#cite_note-16"></a></sup>
+									</p><p><span class="anchor" id="OriginalWithPhiN"></span>In the original RSA paper,<sup id="cite_ref-rsa_2-2" class="reference"><a href="#cite_note-rsa-2"></a></sup> the <a href="/wiki/Euler_totient_function" class="mw-redirect" title="Euler totient function">Euler totient function</a> <span class="nowrap"><i>φ</i>(<i>n</i>) = (<i>p</i> − 1)(<i>q</i> − 1)</span> is used instead of <i>λ</i>(<i>n</i>) for calculating the private exponent <i>d</i>. Since <i>φ</i>(<i>n</i>) is always divisible by <i>λ</i>(<i>n</i>), the algorithm works as well. The possibility of using <a href="/wiki/Euler_totient_function" class="mw-redirect" title="Euler totient function">Euler totient function</a> results also from <a href="/wiki/Lagrange%27s_theorem_(group_theory)" title="Lagrange&#39;s theorem (group theory)">Lagrange's theorem</a> applied to the <a href="/wiki/Multiplicative_group_of_integers_modulo_n" title="Multiplicative group of integers modulo n">multiplicative group of integers modulo <i>pq</i></a>. Thus any <i>d</i> satisfying <span class="nowrap"><i>d</i>⋅<i>e</i> ≡ 1 (mod <i>φ</i>(<i>n</i>))</span> also satisfies <span class="nowrap"><i>d</i>⋅<i>e</i> ≡ 1 (mod <i>λ</i>(<i>n</i>))</span>. However, computing <i>d</i> modulo <i>φ</i>(<i>n</i>) will sometimes yield a result that is larger than necessary (i.e. <span class="nowrap"><i>d</i> &gt; <i>λ</i>(<i>n</i>)</span>). Most of the implementations of RSA will accept exponents generated using either method (if they use the private exponent <i>d</i> at all, rather than using the optimized decryption method <a href="#Using_the_Chinese_remainder_algorithm">based on the Chinese remainder theorem</a> described below), but some standards such as <a rel="nofollow" class="external text" href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf#page=62">FIPS&#160;186-4</a> may require that <span class="nowrap"><i>d</i> &lt; <i>λ</i>(<i>n</i>)</span>. Any "oversized" private exponents not meeting this criterion may always be reduced modulo <i>λ</i>(<i>n</i>) to obtain a smaller equivalent exponent.
+									</p><p><span class="anchor" id="CryptoStrengthOfPQ"></span>Since any common factors of <span class="nowrap">(<i>p</i> − 1)</span> and <span class="nowrap">(<i>q</i> − 1)</span> are present in the factorisation of <span class="nowrap"><i>n</i> − 1</span> = <span class="nowrap"><i>pq</i> − 1</span> = <span class="nowrap">(<i>p</i> − 1)(<i>q</i> − 1) + (<i>p</i> − 1) + (<i>q</i> − 1)</span>,<sup id="cite_ref-17" class="reference"><a href="#cite_note-17"></a></sup> it is recommended that <span class="nowrap">(<i>p</i> − 1)</span> and <span class="nowrap">(<i>q</i> − 1)</span> have only very small common factors, if any, besides the necessary 2.<sup id="cite_ref-rsa_2-3" class="reference"><a href="#cite_note-rsa-2"></a></sup><sup id="cite_ref-18" class="reference"><a href="#cite_note-18"></a></sup><sup id="cite_ref-19" class="reference"><a href="#cite_note-19">
+
+									</a></sup><sup id="cite_ref-20" class="reference"><a href="#cite_note-20"></a></sup>
+									</p><p>Note: The authors of the original RSA paper carry out the key generation by choosing <i>d</i> and then computing <i>e</i> as the <a href="/wiki/Modular_multiplicative_inverse" title="Modular multiplicative inverse">modular multiplicative inverse</a> of <i>d</i> modulo <i>φ</i>(<i>n</i>), whereas most current implementations of RSA, such as those following <a href="/wiki/PKCS1" class="mw-redirect" title="PKCS1">PKCS#1</a>, do the reverse (choose <i>e</i> and compute <i>d</i>). Since the chosen key can be small, whereas the computed key normally is not, the RSA paper's algorithm optimizes decryption compared to encryption, while the modern algorithm optimizes encryption instead.<sup id="cite_ref-rsa_2-4" class="reference"><a href="#cite_note-rsa-2"></a></sup><sup id="cite_ref-21" class="reference"><a href="#cite_note-21"></a></sup>
+									</p>
+							
+						</div>	
+						
+					</div>
+					
+				
+				
+			</div>
+
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

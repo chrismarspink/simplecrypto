@@ -1,0 +1,172 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  Cryptography, Encryption, Decryption, Certificate, Encode, Decode 
+{% endblock %} 
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+			
+	<div class="content">
+		<div class="panel-header bg-primary-gradient">
+			<div class="page-inner py-5">
+				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+					<div>
+						<h2 class="text-white pb-2 fw-bold">CryptoEncode Studio</h2>
+						<h5 class="text-white op-7 mb-2">Cryptography & PKI utility collection</h5>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="page-inner mt--5">
+			
+			<div class="row">
+				
+			</div>
+
+			<div class="row row-card-no-pd">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+								<h4 class="card-title">Cryptography Service collection</h4>
+									</div>
+										<!--p class="card-category">
+											Cryptographic data encode/decode, en/decrypt and sign/verify</p>
+
+										<p class="text-primary">This is a free and simple online tools for various cryptography service.
+											As the communication is increasing rapidly nowadays, there is huge needs for the secure communication ways and cryptography is getting more important.
+											This 'Cryptoencode.net' provides a package of various crypto technologies and we want to contribute to reduce your risk from the malicious activities.
+										</p-->
+
+
+										<p class="card-category">This is a FREE and SIMPLE online tools for various cryptography service.</p>
+										<p></p>
+										<p>As the communication is increasing rapidly nowadays, there is huge needs for the secure communication ways and cryptography is getting more important.
+										<br>This 'Cryptoencode.net' provides a package of various crypto technologies and we want to contribute to reduce your risk from the malicious activities.</p>
+										<p></p>
+										<p>For the privacy, we DO NOT inspect or save any uploaded files  and everytime your request job is done, all files will be deleted automatically.</p>
+
+
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="table-responsive table-hover table-sales">
+										<table class="table">
+											<tbody>
+												
+												<tr>
+													<td>
+														<h5>Generators</h>
+													</td>
+													<td>
+														<p>It can provides BASE64, message digest/HMAC, RSA/ECC private key generator.</p>
+														<ul>
+															<li>base64/base16/base32/base85/Ascii-85 data encode/decode</li>
+															<li>Message Digest/HMAC generator</li>
+															<li>RSA Key generator</li>
+															<li>ECC Key generator</li>
+														</ul>														
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<h5>Encrypt/Decrypt</h>
+													</td>
+													<td>
+														<p>It can encrypt your files and download them.
+																Symmetric key encryption performs encryption and decryption with the same password, but in RSA, 
+																encryption is possible with a public key and decryption with a private key is only possible.</p>
+													</td>
+												</tr>
+												
+
+												<tr>
+													<td>
+														<h5>Analyzers</h>
+													</td>
+													<td>
+														<p>It can analyze PEM text and output result. PEM data can be CSR, certificate, public/private key, pkcs7, pkcs12, CRL, CMS format Each header is as follows: </p>
+														<ul>
+															<li>RSA Public Key:         -----BEGIN RSA PUBLIC KEY----- </li>
+															<li>Encrypted Private Key:  -----BEGIN RSA PRIVATE KEY----- and Proc-Type: 4,ENCRYPTED</li>
+															<li>CRL:                    -----BEGIN X509 CRL-----</li>
+															<li>CSR:                    -----BEGIN CERTIFICATE REQUEST-----</li>
+															<li>CRT:                    -----BEGIN CERTIFICATE-----</li>
+															<li>PEM:                    -----END RSA PRIVATE KEY-----</li>
+															<li>PKCS7:                  -----BEGIN PKCS7-----</li>
+															<li>PRIVATE KEY:            -----BEGIN PRIVATE KEY-----</li>
+															<li>Elliptic Curve:         -----BEGIN EC PRIVATE KEY-----</li>
+														</ul>
+									
+													</td>
+												</tr>
+
+
+												<tr>
+													<td>
+														<h5">Sign/Verify</h>
+													</td>
+													<td>
+														<p>It can provides file signature and signature verification function using public key algorithm. 
+After hashing the file using the SHA256 algorithm, it is signed with the private key or verified with the public key.</p>
+													</td>
+												</tr>
+												
+												
+												<tr>
+													<td>
+														<h5>PKIX</h>
+													</td>
+													<td>
+														<p>It can provides PKIX object creation and verification function, include</p>
+														<ul>
+															<li>Certificate Signing Request generator</li>
+															<li>Encrypt Private Key(PEM)</li>
+															<li>Verify CSR PoP(Proof of Possession)</li>
+															<li>Verify Certificate Signature</li>
+														</ul>
+													</td>
+												</tr>
+												
+												<tr>
+													<td>
+														<h5>SSL/TLS</h>
+													</td>
+													<td>
+														<p>It can get the SSL/TLS certificate of web site</p>
+													</td>
+												</tr>
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+								This website uses cookies to provide better service. You agree to this by using this website and you can find information about our use of cookies in our 
+								<a href="/privacy_policy.html">&nbsp Privacy Policy</a>
+								<!--div class="col-md-4">
+									<div class="card card-post card-round">
+										<img class="card-img-top" src="/static/assets/img/marvin-meyer-SYTO3xs06fU-unsplash.jpg" alt="Card image cap">
+								
+									</div>
+								</div-->
+							</div>
+						</div>
+					</div>
+				</div>c
+			
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	
+
+{% endblock javascripts %}

@@ -1,0 +1,113 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  Asymmetric Encryption , Asymmetric Encode {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">RSA Public Key Encryption</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Encrypt/Decrypt</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Public Key(Asymmetric)</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-danger">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					{{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Encrypt Text with Public Key</h4>
+							
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<p>RSA(Rivest-Shamir-Adleman) is an Asymmetric encryption technique that uses two different keys as public and private keys to perform the encryption and decryption. With RSA, you can encrypt sensitive information with a public key and a matching private key is used to decrypt the encrypted message. Asymmetric encryption is mostly used when there are 2 different endpoints are involved such as VPN client and server, SSH, etc.</p>
+								<p>Below is an online tool to perform RSA encryption and decryption as a RSA calculator.</p>
+								<p>For Java implementation of RSA, you can follow this article.</p>
+								<p>First, we require public and private keys for RSA encryption and decryption. Hence, below is the tool to generate RSA key online. It generates RSA public key as well as the private key of size 512 bit, 1024 bit, 2048 bit, 3072 bit and 4096 bit with Base64 encoded.</p>
+								<p>By default, the private key is generated in PKCS#8 format and the public key is generated in X.509 format.</p>
+							</div>
+							<form method="post" action="" enctype="multipart/form-data">
+							
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Message File</label>
+								    <input type="file" name="inputfile" class="form-control-file" id="inputfile" required>
+									{% if errtype == 'inputfileerror' %}
+										<p class="text-danger">Error : {{ errmsg }}</p>
+									{% endif %}
+								</div>
+
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Key File(Certificate/Private Key)</label>
+								    <input type="file" name="keyfile" class="form-control-file" id="keyfile" required>
+									{% if errtype == 'keyfileerror' %}
+										<p class="text-danger">Error : {{ errmsg }}</p>
+									{% endif %}
+								</div>
+								
+								<div class="form-group">
+									<label for="password">Input password</label>
+									<input type="password" class="form-control" id="inpass"  name="inpass" placeholder="Private key password">
+								</div>
+								
+								<div class="form-group">
+									<p class="demo">
+											
+										<button class="btn btn-primary btn-round btn-border" type="submit" name="action" value="enc"> <span class="btn-label"><i class="fas fa-lock"></i></span>
+											Encrypt with Certificate
+										</button>
+
+		    							<button class="btn btn-secondary btn-round btn-border" type="submit" name="action" value="dec" ><span class="btn-label"><i class="fas fa-lock-open"></i></span>
+											Decrypt with Private Key
+										</button>
+									</p>
+								</div>
+
+							
+						    </form>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

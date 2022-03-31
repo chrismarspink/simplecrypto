@@ -1,0 +1,185 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  RSA sign, RSA verify, CMS, Cryptographic Message Syntax  {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">RSA Sign/Verify</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Sign/Verify</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">RSA Sign/Verify</a>
+					</li>
+				</ul>
+			</div>
+            
+            {% if errtype and errmsg %}
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					ERROR: {{errmsg }}
+			</div>
+			{% endif %}
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Sign to file with private key</h4>
+							
+						</div>
+						<div class="card-body">
+
+
+							<div class="form-group">
+								<span class="h2">The RSA Sign/Verify</span>
+									<p></p>
+									<ul>
+										<li><strong>RSA</strong>(The Rivest-Shamir-Adleman) algorithm is one of the most popular and secure public-key encryption methods.</li>
+										<li>The algorithm capitalizes on the fact that there is no efficient way to factor very large (100-200 digit) numbers</li>
+										<li>RSA Sign/Verify use <strong>CMS(Cryptographic Message Syntax)</strong> data format</li>
+										<p></p>
+										<li>RSA Private Key file sample</li>
+									<textarea class="form-control animated" rows="11" name="publickeyparam" id="publickeyparam">-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDS/CmSNyaF61fnn/ZoinhcP/Vh
+...
+74Vdm3vU0LlfZSDMJwIDAQAB
+-----END PUBLIC KEY-----
+----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQDS/CmSNyaF61fnn/ZoinhcP/VhfgPWqKf45HibclXqtCMnxvFS
+tKJ7Vlzo2F7tMW2bZPcTSsVYHwndWIIZEic4OtzerQCyvQqEDl1PwSmXRaQc/Pdc
+...
+ZsnHNoCu/t1mZP6FkuX9+B1afN9EcJ4ody5xUwMBw98=
+-----END RSA PRIVATE KEY-----	</textarea>
+
+									</ul>
+
+									
+							</div>
+
+							<form method="post" action="" enctype="multipart/form-data">
+
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Message File</label>
+								    <input type="file" name="inputfile" class="form-control-file" id="inputfile" required>
+									{% if errtype == 'inputfileerror' %}
+										<p class="text-danger">Error : {{ errmsg }}</p>
+									{% endif %}
+								</div>
+
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Key File(Certificate/Private Key)</label>
+								    <input type="file" name="keyfile" class="form-control-file" id="keyfile" required>
+									{% if errtype == 'keyfileerror' %}
+										<p class="text-danger">Error : {{ errmsg }}</p>
+									{% endif %}
+								</div>
+
+								<div class="form-check">
+									<label>Certificate/Private Key File Format: </label>
+									<label class="form-radio-label">
+										<input class="form-radio-input" type="radio" name="inform" value="PEM" checked="">
+										<span class="form-radio-sign">PEM</span>
+									</label>
+
+									<label class="form-radio-label">
+										<input class="form-radio-input" type="radio" name="inform" value="DER" >
+										<span class="form-radio-sign">DER</span>
+									</label>
+								</div>
+
+                                <!--div class="form-group">
+									<label for="exampleFormControlFile1">Signature File</label>
+								    <input type="file" name="inputfile" class="form-control-file" id="inputfile">
+									{% if errtype == 'inputfileerror' %}
+										<p class="text-danger">Error : {{ errmsg }}</p>
+									{% endif %}
+								</div-->
+
+                                <div class="form-check">
+									<label>Verification option: </label>
+									<label class="form-radio-label">
+										<input class="form-radio-input" type="radio" name="verifyopt" value="file" checked="">
+										<span class="form-radio-sign">Save verify result to file</span>
+									</label>
+
+									<label class="form-radio-label">
+										<input class="form-radio-input" type="radio" name="verifyopt" value="hexdump" >
+										<span class="form-radio-sign">HEX Dump verify result</span>
+									</label>
+								</div>
+
+
+								
+								<div class="form-group">
+									<label for="password">Input password</label>
+									<input type="password" class="form-control" id="inpass"  name="inpass" placeholder="Private key password">
+								</div>
+								
+								<div class="form-group">
+										<button class="btn btn-primary btn-round btn-border" type="submit" name="action" value="sign"> <span class="btn-label"><i class="fas fa-lock"></i></span>
+											Sign with Private Key
+										</button>
+
+		    							<button class="btn btn-secondary btn-round btn-border" type="submit" name="action" value="verify" ><span class="btn-label"><i class="fas fa-check-circle"></i></span>
+											Verify with X509 Certificate
+										</button>
+								</div>
+						    </form>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+
+            {%if hexdump%}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="card-header">
+                                <h4 class="card-title">Verification Result: HexDump</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" action="" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                            <pre>{{hexdump}}</pre>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {%endif%}
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

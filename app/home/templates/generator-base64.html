@@ -1,0 +1,164 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  Base64, Encryption, Decryption, Encode, Decode   {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">BASE64</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Generators</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">BASE64</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					ERROR: {{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Base64 Encode/Decode</h4>
+							
+						</div>
+						<div class="card-body">
+							<form method="post" action="">
+								<div class="form-group">
+									<label for="defaultSelect">Algorithm </label>
+			
+									<select class="form-control form-control" id="alg" name="alg">
+										<option value="b64">Base-64</option>
+										<option value="b16">Base-16</option>
+										<option value="b32">Base-32</option>
+										<option value="a85">Ascii-85</option>
+										<option value="b85">Base-85</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+								    <textarea class="form-control" name="inputtext" id="inputtext" rows="5" required>{{inputtext}}</textarea>
+							    </div>
+
+								<div class="form-group">
+										<button class="btn btn-primary btn-round btn-border" type="submit" name="action" value="encode"><span class="btn-label"><i class="fa fa-check"></i></span>
+											Encode
+										</button>
+										<button class="btn btn-secondary  btn-round btn-border" type="submit" name="action" value="decode"><span class="btn-label"><i class="fa fa-check"></i></span>
+											Decode
+										</button>
+		    							<button class="btn btn-warning  btn-round btn-border" type="submit" name="action" value="clear"><span class="btn-label"><i class="fas fa-circle-notch"></i></span>
+											Clear
+										</button>
+								</div>
+							</form> 
+						</div>
+					</div>
+				</div>
+
+				{%if result%}
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Result</h4>
+						</div>
+						<div class="card-body">
+							<!--div class="form-group">
+							    <textarea class="form-control" id="pem-data-parsed" rows="10">{% autoescape false %}{{result}}{% endautoescape %}
+								</textarea>
+						    </div-->
+							<pre>{{result}}</pre>
+						</div>	
+					</div>
+				</div>
+				{%endif%}
+
+	
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-12">
+
+
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Additonal Information</h4>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<span class="h4">BASE64 Encoding</span>
+								<p>Base64 encoding schemes are commonly used when there is a need to encode binary data, especially when that data needs to be stored and transferred over media that are designed to deal with text. This encoding helps to ensure that the data remains intact without modification during transport.</p>
+								<p>Base64 is used commonly in a number of applications including email via MIME, as well as storing complex data in XML or JSON.</p>
+								<p>In case of textual data, the encoding scheme does not contain the character set, so you have to specify which character set was used during the encoding process. It is usually UTF-8, but can be many others</p>
+			
+								<span class="h4">Details of the Base64 encoding</span>
+								<ul>
+									<li>Base64 is a generic term for a number of similar encoding schemes that encode binary data by treating it numerically and translating it into a base-64 representation. The Base64 term originates from a specific MIME-content transfer encoding.</li>
+									<p></p>
+									<li>Design</li>
+									<p>The particular choice of characters to make up the 64 characters required for Base64 varies between implementations. The general rule is to choose a set of 64 characters that is both 1) part of a subset common to most encodings, and 2) also printable. This combination leaves the data unlikely to be modified in transit through systems such as email, which were traditionally not 8-bit clean. For example, MIME's Base64 implementation uses A-Z, a-z, and 0-9 for the first 62 values, as well as "+" and "/" for the last two. Other variations, usually derived from Base64, share this property but differ in the symbols chosen for the last two values; an example is the URL and filename safe "RFC 4648 / Base64URL" variant, which uses "-" and "_".</p>
+									<li>Example</li>
+									<p>For example, the following sentence, the slogan of Wikipedia, is</p>
+									<p class="text-primary">Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.</p>
+									<p>It is converted to base 64 through the process described above as follows.</p>
+									<p class="text-primary">TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0
+										aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1
+										c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0
+										aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl
+										LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=</p>
+									<p>For reference, the process of converting the first word, , Manis as follows.</p>
+									<p>As this example illustrates, Base64 encoding converts 3 uncoded bytes (in this case, ASCII characters) into 4 encoded ASCII characters</p>
+									<div class="container float-left">
+											<img src="/static/assets/img/base64_sample_man.png" width="600" class="img-fluid">
+									</div>
+									<br>
+			
+								</ul>
+			
+							</div>
+						</div>	
+					</div>
+				</div>
+
+				
+	
+			</div>
+
+
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

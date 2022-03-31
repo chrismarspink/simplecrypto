@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  PKCS12 Parser, PKCS12, pfx, Pkcs#12, p12 {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">PKCS12 Parser</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Analyzers</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">PKCS12</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					ERROR: {{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+			<div class="row">
+			
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Select PKCS12(pfx) file </h4>
+						</div>
+						<div class="card-body">
+							<form method="post" action="" enctype="multipart/form-data">
+							
+								<div class="form-group">
+									<ul>
+										<li>In cryptography, PKCS #12 defines an archive file format for storing many cryptography objects as a single file.</li>
+										<li>It is commonly used to bundle a private key with its X.509 certificate or to bundle all the members of a chain of trust.</li>
+										<li>A PKCS #12 file may be encrypted and signed. The internal storage containers, called "SafeBags", may also be encrypted and signed.</li>
+										<li>A few SafeBags are predefined to store certificates, private keys and CRLs. Another SafeBag is provided to store any other data at individual implementer's choice.</li>
+										<li>PKCS #12 is one of the family of standards called Public-Key Cryptography Standards (PKCS) published by RSA Laboratories.</li>
+										<li>The filename extension for PKCS #12 files is <strong>.p12</strong> or <strong>.pfx</strong>.</li>
+									</ul>
+								</div>
+								<div class="form-group">
+									<label for="exampleFormControlFile1">PKCS12 file input(.pfx/.p12)</label>
+									<input type="file" class="form-control-file" id="exampleFormControlFile1" name="pkcs12file" required> 
+								</div>
+
+								<div class="form-group">
+									<label for="password">Input password</label>
+									<input type="password" class="form-control" id="inpass" placeholder="Password" name="inpass" required>
+								</div>
+			
+								<div class="form-group">
+									<p class="demo">
+											
+										<button class="btn btn-primary btn-round btn-border" name="act_pkcs12" value="parse"><span class="btn-label"><i class="fa fa-check"></i></span>
+											Submit
+										</button>
+									</p>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+		
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">PKCS12 Objects</h4>
+						</div>
+						<div class="card-body">
+							<form method="post" action="">
+
+								<p class="demo">
+									<div class="form-group">
+										<button class="btn btn-default btn-round  btn-xs" type="submit" name="action" value="download_usercert" {% if usercert_pem %} NONE {% else %} disabled {% endif %}>
+											<span class="btn-label"><i class="fas fa-arrow-down"></i></span>
+											Download User Certificate
+										</button>
+									
+										<button class="btn btn-primary btn-round btn-xs" type="submit" name="action" value="download_userkey"  {% if userkey_pem %} NONE {% else %} disabled {% endif %}>
+											<span class="btn-label"><i class="fas fa-arrow-down"></i></span>
+											Download Private Key
+										</button>
+									
+										<button class="btn btn-secondary btn-round btn-xs" type="submit"  name="action" value="download_cacert" {% if cacert_pem %} NONE {% else %} disabled {% endif %}>
+											<span class="btn-label"><i class="fas fa-arrow-down"></i></span>
+											Download CA Certificate
+										</button>
+									</div>
+								</p>
+
+
+								<div class="form-group">
+									<ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pkcs12-cert" role="tab" aria-controls="pills-home" aria-selected="true">User Certificate</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pkcs12-key" role="tab" aria-controls="pills-profile" aria-selected="false">Private Key</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pkcs12-cacert" role="tab" aria-controls="pills-contact" aria-selected="false">CA Certificate</a>
+										</li>
+									</ul>
+									<div class="tab-content mt-2 mb-3" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pkcs12-cert" role="tabpanel" aria-labelledby="pills-home-tab">
+											<textarea class="form-control" id="pem-data-parsed" rows="10" name="usercert_pem" style="{{env.textarea_style}}">{{usercert_pem}}</textarea>
+										</div>
+										<div class="tab-pane fade" id="pkcs12-key" role="tabpanel" aria-labelledby="pills-profile-tab">
+											<textarea class="form-control" id="pem-data-parsed" rows="10" name="userkey_pem"  style="{{env.textarea_style}}">{{userkey_pem}}</textarea>
+										</div>
+										<div class="tab-pane fade" id="pkcs12-cacert" role="tabpanel" aria-labelledby="pills-contact-tab">
+											<textarea class="form-control" id="pem-data-parsed" rows="10" name="cacert_pem"  style="{{env.textarea_style}}">{{cacert_pem}}</textarea>
+										</div>
+									</div>
+								</div>	
+							</form>
+						</div>
+						
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

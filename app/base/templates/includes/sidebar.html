@@ -1,0 +1,313 @@
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-2">			
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+
+					
+				
+				{% if current_user.is_authenticated %}
+				
+					<ul class="nav nav-primary">
+						<li class="mx-4 mt-2">
+							<a target="_blank"
+							href="#" 
+							class="btn btn-danger btn-block">
+								<span class="btn-label mr-2"> <i class="fa fa-rocket"></i> </span>USER AUTH VERSION</a> 
+						</li>
+					</ul>
+
+				{% else %}
+
+				
+
+				<div class="user">
+
+					<img src="/static/assets/img/logoo.png" alt="..." class="avatar-img rounded-circle">
+					<!--img src="/static/assets/img/sign.png" alt="..." class="avatar-img rounded-circle"-->
+					<!--img src="/static/assets/img/wandoo_01.png" alt="..." class="avatar-img rounded-circle"-->
+					<br>
+				
+				</div>
+				
+					<!--div class="user">
+						
+
+						<div class="avatar float-left mr-2">
+							<span class="avatar-title rounded-circle border border-white"><i class="icon-user"></i></span>
+						</div>
+
+						<div class="info">
+							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								<span>
+									
+										{{ current_user.username }}
+									
+									Unregistered 
+									<span class="user-level">
+										
+										{{ current_user.email }}
+										
+										User
+									</span>
+									<span class="caret"></span>
+									
+								</span>
+							</a>
+							<div class="clearfix">
+
+							</div>
+
+							<div class="collapse in" id="collapseExample">
+								<ul class="nav">
+									<li>
+										<a href="#profile">
+											<span class="link-collapse">My Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="{{ url_for('base_blueprint.logout') }}">
+											<span class="link-collapse">Logout</span>
+										</a>
+									</li>
+								</ul>
+							</div
+						</div>
+					</div-->
+					
+					<ul class="nav nav-primary">
+						<!--li class="nav-item {% if 'index' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+								<i class="fab fa-docker"></i>
+								<p>도커/쿠버네티스</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="dashboard">
+								<ul class="nav nav-collapse">
+									<li> <a href="/docker-main.html"> <span class="sub-item">도커 SDK</span> </a> </li>
+									<li> <a href="/k8s-main.html"> <span class="sub-item">쿠버네티스 SDK</span> </a> </li>
+								</ul>
+								
+							</div>
+						</li-->
+
+
+						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">Cryptography Services</h4>
+						</li>
+
+
+						<li class="nav-item {% if 'generator-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#generator">
+								<i class="fas fa-cube"></i> <p>Generators</p> <span class="caret"></span>
+							</a>
+												
+							<div class="collapse" id="generator">
+								<ul class="nav nav-collapse">
+									<li> <a href="/generator-base64.html"> <span class="sub-item">Base64</span> </a> </li>
+									<li><a href="/generator-digest.html"> <span class="sub-item">Digest/HMAC</span> </a> </li>
+									<li> <a href="/generator-privatekey.html"> <span class="sub-item">RSA Key</span> </a> </li>
+									<li> <a href="/generator-ecc_privatekey.html"> <span class="sub-item">ECC Key</span> </a> </li>
+									<li> <a href="/generator-ecc_test_key.html"> <span class="sub-item">ECC Name/Key Pair</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+
+						<li class="nav-item {% if 'cipher-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#cipher">
+								<i class="fas fa-unlock-alt"></i> <p>Encrypt/Decrypt</p> <span class="caret"></span>
+							</a>
+
+							<div class="collapse" id="cipher">
+								<ul class="nav nav-collapse">
+									<li> <a href="/cipher-encrypt.html"> <span class="sub-item">Symmetric</span> </a> </li>
+									<li> <a href="/cipher-pubkey_encrypt.html"> <span class="sub-item">Public Key(Asymmetric)</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="nav-item {% if 'analyzer-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#analyzer">
+								<i class="fas fa-list-ol"></i> <p>Analyzers</p> <span class="caret"></span>
+							</a>
+							<div class="collapse" id="analyzer">
+								<ul class="nav nav-collapse">
+									<li> <a href="/analyzer-pem.html"><span class="sub-item">PEM</span></a> </li> 
+									<li> <a href="/analyzer-file.html">	<span class="sub-item">PEM/DER File</span>	</a> </li>
+									<li> <a href="/analyzer-pkcs12.html"> <span class="sub-item">PKCS12</span> </a> </li>
+									<li> <a href="/analyzer-jks.html"> <span class="sub-item">JKS(Java KeyStore)</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="nav-item {% if 'sign-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#sign">
+								<i class="fas fa-feather-alt"></i> <p>Sign/Verify</p> <span class="caret"></span>
+							</a>
+												
+							<div class="collapse" id="sign">
+								<ul class="nav nav-collapse">
+									<li> <a href="/sign-pubkey.html"> <span class="sub-item">Public Key Sign/Verify</span> </a> </li>
+									<li> <a href="/sign-rsa.html"> <span class="sub-item">RSA Sign/Verify</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						
+
+						<li class="nav-item {% if 'pkix-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#pkix">
+								<i class="fas fa-bars"></i>
+								<p>PKIX</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="pkix">
+								<ul class="nav nav-collapse">
+									<li> <a href="/pkix-generate_csr.html"> <span class="sub-item">CSR Generator</span> </a></li>
+									<li> <a href="/pkix-encrypt_privatekey.html"> <span class="sub-item">Encrypt Private Key</span> </a> </li>
+									<li> <a href="/pkix-verify_csr.html"> <span class="sub-item">Verify CSR</span> </a> </li>
+									<li> <a href="/pkix-verify_certificate.html"> <span class="sub-item">Verify Certificate</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+
+						<li class="nav-item {% if 'ssl-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#ssl">
+								<i class="fab fa-expeditedssl"></i>
+								<p>SSL/TLS</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="ssl">
+								<ul class="nav nav-collapse">
+									<li> <a href="/ssl-getcert.html"> <span class="sub-item">Extract SSL Server Certificate</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+
+
+
+
+					<!--ul class="nav nav-primary">
+						
+						<li class="nav-section">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							<h4 class="text-section">Certification Services</h4>
+						</li>
+
+
+						<li class="nav-item {% if 'request-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#request">
+								<i class="flaticon-credit-card"></i>  <p>Request</p> <span class="caret"></span>
+							</a>
+												
+							<div class="collapse" id="request">
+								<ul class="nav nav-collapse">
+									<li> <a href="/request-keycsr.html"> <span class="sub-item">KeyPair/CSR Generate</span> </a> </li>
+									<li> <a href="/request-csr.html"> <span class="sub-item">Request</span> </a> </li>
+									<li> <a href="/request-view.html"> <span class="sub-item">View Request</span> </a> </li>
+									<li> <a href="/request-mycert.html"> <span class="sub-item">My Certificate</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="nav-item {% if 'issuer-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#issuer">
+								<i class="flaticon-desk"></i> <p>Issuer</p> <span class="caret"></span>
+							</a>
+
+							<div class="collapse" id="issuer">
+								<ul class="nav nav-collapse">
+									<li> <a href="/issuer_penging.html"> <span class="sub-item">Penging</span> <span class="badge badge-warning">8</span></a> </li>
+									<li> <a href="/issuer_list.html"> <span class="sub-item">List</span> </a> </li>
+									<li> <a href="/issuer_revoke.html"> <span class="sub-item">Revoke</span>  </a> </li>
+									<li> <a href="/issuer_crl.html"> <span class="sub-item">CRL</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="nav-item {% if 'config-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#config">
+								<i class="flaticon-multimedia-2"></i> <p>Configuration</p> <span class="caret"></span>
+							</a>
+							<div class="collapse" id="config">
+								<ul class="nav nav-collapse">
+									<li> <a href="/config-dn.html"><span class="sub-item">DN</span></a> </li>
+									<li> <a href="/config-key.html">	<span class="sub-item">Keys</span>	</a> </li>
+									<li> <a href="/config-extension.html"> <span class="sub-item">Extensions</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="nav-item {% if 'search-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#search">
+								<i class="flaticon-search-2"></i> <p>Search</p> <span class="caret"></span>
+							</a>
+												
+							<div class="collapse" id="search">
+								<ul class="nav nav-collapse">
+									<li> <a href="/search-valid_revoked.html"><span class="sub-item">Valid/Revoked</span> </a> </li>
+									<li><a href="/search-expired.html"><span class="sub-item">Expired</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						
+					</ul>
+
+
+					<ul class="nav nav-primary">
+						
+						<li class="nav-section">
+							<span class="sidebar-mini-icon"> <i class="fa fa-ellipsis-h"></i> </span>
+							<h4 class="text-section">PKIZIP Services</h4>
+						</li>
+
+
+						<li class="nav-item {% if 'pkizip-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#pkizip">
+								<i class="flaticon-credit-card"></i> <p>Generate PKIZIP</p> <span class="caret"></span>
+							</a>
+												
+							<div class="collapse" id="pkizip">
+								<ul class="nav nav-collapse">
+									<li> <a href="/pkizip-encrypted.html"> <span class="sub-item">Encrypted Message</span> </a> </li>
+									<li> <a href="/pkizip-enveloped.html"> <span class="sub-item">Enveloped Message</span> </a> </li>
+									<li> <a href="/pkizip-signed.html"> <span class="sub-item">Signed Message</span> </a> </li>
+									<li> <a href="/pkizip-signed_encrypted.html"> <span class="sub-item">Signed/Encrypted Messaged</span> </a> </li>
+									<li> <a href="/pkizip-digested.html"> <span class="sub-item">Digested Message</span> </a> </li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="nav-item {% if 'pkmessage-' in segment %} active {% endif %}">
+							<a data-toggle="collapse" href="#pkmessage">
+								<i class="flaticon-desk"></i> <p>Message</p> <span class="caret"></span>
+							</a>
+
+							<div class="collapse" id="pkmessage">
+								<ul class="nav nav-collapse">
+									<li> <a href="/pkmessage_send.html"> <span class="sub-item">Send Message</span><span class="badge badge-success">1</span> </a> </li>
+									<li> <a href="/pkmessage_received.html"> <span class="sub-item">Received</span> <span class="badge badge-danger">12</span></a> </li>
+									<li> <a href="/pkmessage_sent.html"> <span class="sub-item">Sent</span> </a> </li>
+									<li> <a href="/pkmessage_trash.html"> <span class="sub-item">Trash</span>  </a> </li>
+								</ul>
+							</div>
+						</li>
+						
+					</ul-->
+
+					
+				
+				{% endif %}	
+				</div>
+			</div>
+		</div>
+        <!-- End Sidebar -->
+        

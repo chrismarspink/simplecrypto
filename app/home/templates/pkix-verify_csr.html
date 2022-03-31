@@ -1,0 +1,139 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  CSR, CSR Verify,  Cerficate Signing Request, PKIX {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Verify Certificate Signing Request(CSR)</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">PKIX</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Verify CSR</a>
+					</li>
+				</ul>
+				
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					ERROR: {{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Verify CSR</h4>
+						</div>
+
+						<div class="card-body n-5">
+							<form method="post" action="" enctype="multipart/form-data">	
+								<div class="form-group">
+<p>In public-key cryptography, the private and public keys in a pair are mathematically related in that they share the same modulus. The length of the modulus, expressed in bits, is the key length.
+To confirm that a particular private key matches the public key contained in a certificate signing request (CSR) and certificate, one must confirm that the moduli of both keys are identical. </p>
+								</div>
+								<div class="form-group">
+									<label for="exampleFormControlFile1">PEM CSR</label>
+									<textarea class="form-control" id="pem-data" rows="10" name="inputtext" required>{{inputtext}}</textarea>
+								</div>
+
+								<div class="form-group">
+									<details>
+										<summary>
+											CSR(Certificate Sigining Request) verification
+										</summary>
+										<span>
+											<ul>
+												<li>CSR Header:</li>
+												<li>&nbsp&nbsp&nbsp-----BEGIN CERTIFICATE REQUEST-----</code></li>
+												<li>&nbsp&nbsp&nbsp....</code></li>
+												<li>&nbsp&nbsp&nbsp-----END CERTIFICATE REQUEST-----</code></li>
+												<li>this page verify signature in CSR data, and can check if a CSR and a Private Key match.</code>)</li>
+											</ul>
+										</span>
+
+									</details>
+								</div>
+
+								<div class="form-group">
+									<div class="form-check">
+										<label class="form-check-label">
+											<input class="form-check-input" type="checkbox" name="show" value="details">
+											<span class="form-check-sign">Show details</span>
+										</label>
+									</div>
+								</div>
+							
+
+								<div class="form-group">
+										<button class="btn btn-primary btn-round" type="submit" name="action" value="verify"><span class="btn-label"><i class="fa fa-check"></i></span>
+											Verify
+										</button>
+								</div>
+
+							
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				{%if result %}
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Analyze Result</h4>
+						</div>
+						<div class="card-body">
+								<div class="form-group">
+									<pre>{{result}}</pre>
+							    </div>
+								{%if details%}
+								<div class="form-group">
+									<pre>{{details}}</pre>
+							    </div>
+								{%endif%}
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				
+				
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

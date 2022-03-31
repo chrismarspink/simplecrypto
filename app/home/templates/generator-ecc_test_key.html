@@ -1,0 +1,152 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  EC Key pair, Encryption Key, Decryption Key, Encode Key, Decode Key {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Elliptic Curve Name/Key Pair</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Generator</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">ECC Name/Key Pair</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					{{ errmsg }}
+			</div>
+			{% endif %}
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Generate EC Private Key</h4>
+						</div>
+
+						<div class="card-body">
+							
+						<form method="post" action="">
+							<div class="form-group">
+								<span class="h4">Standards for Efficient Cryptography Group</span>
+								<ul>
+									<li>The Standards for Efficient Cryptography Group (SECG) is an international consortium to develop commercial standards for efficient and interoperable cryptography based elliptic curve cryptography (ECC).</li>
+									<li>The SECG website is http://www.secg.org</li>
+									<li>The SECG has published a document with a recommended set of elliptic curve domain parameters, referred by the letters p, a, b, G, n, h. The data set { p, a, b, G, n, h} is collectively referred to as the Elliptic Curve Domain Parameters.</li>
+									<li>The parameters have been give nicknames to enable them to be easily identified. For example: secp256kl</li>
+								</ul>
+
+								<span class="h4">Elliptic Curve Domain Parameters</span>
+								<ul>
+									<li>In this table you will find a set of elliptic curve domain parameters.</li>
+									<li>The elliptic curves uses smaller key sizes with respect to RSA providing comparable security</li>
+									<div class="form-group">
+								
+										<div class="container float-left col-md-12">
+											<img src="/static/assets/img/ec_table.jpeg" class="img-responsive" width="300">
+										</div>
+									</div>
+								</ul>
+							</div>
+
+							
+							<div class="form-group mt-5">
+
+								
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Elliptic Curve Parameter</label>
+									<select class="form-control form-control" id="keylen" name="keylen">
+										{% for element in ecc_curves %}
+										<option value={{element}}>{{ element }} </option>
+  										{% endfor %}
+									</select>
+								</div>	
+									
+								<div class="form-group">
+									
+									<button class="btn btn-primary  btn-round btn-border" type='submit' name="action" value='generate_one'><span class="btn-label"><i class="fa fa-check"></i></span>
+										Generate selected EC keypair 
+									</button>
+									<button class="btn btn-danger btn-round btn-border" type='submit' name="action" value='generate_all'><span class="btn-label"><i class="fa fa-check"></i></span>
+										Generate ALL elliptic curve keypair
+									</button>
+								</div>
+							</div>
+						</form>
+						</div> <!--card-->
+					</div>
+
+					{%if ec_test_key%}
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">EC Private Key - ALL parameter</h4>
+						</div>
+						<div class="card-body">
+							{% for name, value in ec_test_key.items() %}
+								<div class="form-group">
+									<label for="exampleFormControlFile1">[{{loop.index}}] EC Parameter: {{name}}</label>
+									<textarea class="form-control" id="pem-data-parsed"  name="ecparam" rows=5 style="{{env.textarea_style}}" >{{value}}
+									</textarea>
+								</div>
+							{% endfor %}
+						</div>	
+						
+					</div>
+					{%endif%}
+
+					{%if name and ec_key%}
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">EC Private Key</h4>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="exampleFormControlFile1">EC Parameter: {{name}}</label>
+								<textarea class="form-control" id="pem-data-parsed"  name="ecparam" rows=10 style="{{env.textarea_style}}" >{{ec_key}}
+								</textarea>
+							</div>
+						</div>	
+						
+					</div>
+					{%endif%}
+
+					
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

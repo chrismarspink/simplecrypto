@@ -1,0 +1,183 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}  CRYPTOENCODE -  PEM, Privacy Enhanced Mail, DER, Distinguished Encoding Rules {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">PEM Data Analyzer</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Analyzers</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">File</a>
+					</li>
+				</ul>
+				
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					{{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Decode DER/PEM File</h4>
+						</div>
+
+						<div class="card-body n-5">
+							<form method="post" action="" enctype="multipart/form-data">	
+								<div class="form-group">
+									<!--span class="h2">Overview</span-->
+										<p>Distinguished Encoding Rules (DER) is an ASN.1 subset of Basic Encoding Rules, and give exactly one way to represent any ASN.1 value as an Octet String.
+										Distinguished Encoding Rules is intended for applications in which a unique octet string encoding is needed, as is the case when a digital signature is computed on an ASN.1 value. DER is defined in Section 8.7 of X.509.
+										Distinguished Encoding Rules adds the following restrictions to the rules given in Basic Encoding Rules:</p>
+										<ul>
+											<li>When the length is between 0 and 127, the short form of length must be used</li>
+											<li>When the length is 128 or greater, the long form of length must be used, and the length must be encoded in the minimum number of octets.</li>
+											<li>For simple string types and implicitly tagged types derived from simple string types, the primitive, definite-length method must be employed.</li>
+											<li>For structured types, implicitly tagged types derived from structured types, and explicitly tagged types derived from anything, the constructed, definite-length method must be employed.</li>
+											<li>Other restrictions are defined for particular types (such as BIT STRING, SEQUENCE, SET, and SET OF) as defined within the ASN.1 specifications.</li>
+										</ul>
+									<span class="h2">Distinguished Encoding Rules Certificate Format</span>
+										<p>DER is a Binary form of ASCII PEM Certificate Format. All types of Certificates & Private Keys can be encoded in DER format.
+											Distinguished Encoding Rules Certificate Format Characteristics:
+										</p>
+										<ul>
+											<li>This format supports storage of single certificate (does NOT include Private Key for the Certificate Chain)</li>
+											<li>They are Binary format files</li>
+											<li>File System extensions are usually: .cer and .der</li>
+											<li>DER is typically used in Java platform</li>
+										</ul>
+
+									
+								</div>
+							
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Input File</label>
+									<input type="file" title="Choose a file please" class="form-control-file" id="exampleFormControlFile1" name="inputfile" required>
+								</div>
+
+								<div class="form-group">
+									<label>File Type/Format</label>
+									<div class="row">
+										<div class="col-lg-8">
+											<select class="form-control form-control" id="pem_selected" name="intype">
+												<option value="crt">CRT(X.509 Certificate)</option>
+												<option value="crl">CRL(Certificate Revocation List)</option>
+												<option value="csr">CSR(Certificate Signing Request)</option>
+												<option value="csr">New CSR</option>
+												<option value="rsaprikey">RSA Private Key</option>
+												<option value="pkcs7">PKCS7</option>
+												<option value="ecpripkey">Elliptic Curve Private Key</option>
+												<option value="rsapubkey">RSA Public Key</option>
+												<option value="enc_rsaprikey">Encrypted Private Key</option>
+												<option value="cms">CMS(Cryptographic Message Syntax)</option>
+											</select>
+										</div>
+										<div class="col-lg-4">
+											<select class="form-control form-control" id="pem_selected" name="inform">
+												<option value="PEM">PEM</option>
+												<option value="DER">DER</option>
+											</select>
+										</div>
+										
+									</div>
+								</div>
+								
+
+
+
+								{% if errtype == 'inpass' %}
+								<div class="form-group has-error ">
+								{% else %}	
+								<div class="form-group">
+								{% endif %}	
+									<label for="password">Password</label>
+									<input type="password" class="form-control" name="inpass" id="inpass" placeholder="Input password">
+								</div>
+
+								<div class="form-check">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" name="asn1mode" value="true">
+										<span class="form-check-sign">ASN.1 Parsing</span>
+									</label>
+								</div>
+
+								
+								<div class="form-group">
+									<p class="demo">
+											
+										<button class="btn btn-primary btn-round  btn-border" type="submit" name="action" value="analyze"><span class="btn-label"><i class="fa fa-check"></i></span>
+											Analyze
+										</button>
+
+		    							<button class="btn btn-warning btn-round  btn-border" type="submit" name="action" value="clear"><span class="btn-label"><i class="fas fa-circle-notch"></i></span>
+											Clear
+										</button>
+		
+									</p>
+								</div>
+
+							
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				{%if result %}
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Analyze Result</h4>
+						</div>
+						<div class="card-body">
+								<div class="form-group">
+									<pre>{{result}}</pre>
+							    </div>
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				
+				
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

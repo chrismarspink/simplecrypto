@@ -1,0 +1,159 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  PEM, Privacy Enhanced Mail {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">PEM Data Analyzer</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Analyzers</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">PEM</a>
+					</li>
+				</ul>
+				
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					{{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">ENTER PEM FORMAT DATA</h4>
+							
+						</div>
+
+						<div class="card-body n-5">
+							<form method="post" action="" enctype="multipart/form-data">	
+							
+								
+								<div class="form-group">
+									<ul>
+									<li>Analyze PEM format data and output detailed information.</li>
+									<li>PEM (Privacy Enhanced Mail) is a base64 encoded text format file.</li>
+									<li>Binary format files can be damaged when transferring, so they are converted to TEXT, and the source file can be any binary, but mainly a certificate or a private key.</li>
+									<li>When AWS creates an EC2 Instance, the private key generated for access is also in PEM format.</li>
+									<li>To distinguish which binary file is converted to PEM, 5 dash(-) is put at the beginning of the file, BEGIN file type((PEM Message header) is put, and 5 dash(-) is followed by END file type syntax.</li>
+									<li>PEM Message header</li>
+									</ul>
+									
+									<details>
+										<summary>
+											PEM(Privacy Enhanced Mail) Message Format
+										</summary>
+										<span>
+											<ul>
+												<li>PKCS#1 RSAPublicKey  (PEM header:  <code>BEGIN RSA PUBLIC KEY</code>)</li>
+												<li>PKCS#8 EncryptedPrivateKeyInfo  (PEM header:  <code>BEGIN ENCRYPTED PRIVATE KEY</code>)</li>
+												<li>PKCS#8 PrivateKeyInfo (PEM header:  <code>BEGIN PRIVATE KEY</code>)</li>
+												<li>X.509 SubjectPublicKeyInfo  (PEM header:  <code>BEGIN PUBLIC KEY</code>)</li>
+												<li>X.509 Certificate (PEM header:  <code>BEGIN CERTIFICATE</code>)</li>
+												<li>CSR PEM header : (PEM header:<code>----BEGIN NEW CERTIFICATE REQUEST-----</code>)</li>
+												<li>PKCS7(PEM header:<code>-----BEGIN PKCS7----</code>)</li>
+												<li>X509 Certificate Revocation List: (PEM header: (<code>-----BEGIN X509 CRL----</code>)</li>
+												<li>EC Private Key Info: (PEM header: (<code>-----BEGIN EC PRIVATE KEY----</code>)</li>
+											</ul>
+										</span>
+
+									</details>
+									<textarea class="form-control" id="pem-data" rows="10" name="inputtext" style="{{env.textarea_style}}" required>{{inputtext}}</textarea>
+								</div>	
+
+
+								{% if errtype == 'inpass' %}
+								<div class="form-group has-error ">
+								{% else %}	
+								<div class="form-group">
+								{% endif %}	
+									<label for="password">Password</label>
+									<input type="password" class="form-control" name="inpass" id="inpass" placeholder="Input password">
+								</div>
+
+								<div class="form-check">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" name="asn1mode" value="true">
+										<span class="form-check-sign">ASN.1 Parsing</span>
+									</label>
+								</div>
+
+								
+								<div class="form-group">
+									<p class="demo">
+											
+										<button class="btn btn-primary btn-round  btn-border" type="submit" name="action" value="analyze"><span class="btn-label"><i class="fa fa-check"></i></span>
+											Analyze
+										</button>
+
+		    							<button class="btn btn-warning  btn-round  btn-border" type="submit" name="action" value="clear"><span class="btn-label"><i class="fas fa-circle-notch"></i></span>
+											Clear
+										</button>
+		
+									</p>
+								</div>
+
+							
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				{%if result or errmsg%}
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Analyze Result</h4>
+						</div>
+						<div class="card-body">
+								<div class="form-group">
+									<pre>{{result}}</pre>
+							    </div>
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				
+				
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

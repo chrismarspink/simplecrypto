@@ -1,0 +1,156 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} CRYPTOENCODE -  Symmetric Encryption , Symmetric Encode {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">File Encryption</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Encrypt/Decrypt</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Symmetric</a>
+					</li>
+				</ul>
+			</div>
+
+			{% if errtype and errmsg %}
+ 			<div class="alert alert-warning">
+ 				<button type="button" class="close" data-dismiss="alert">&times;</button>
+ 					ERROR: {{ errmsg }}
+ 			</div>
+ 			{% endif %}
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Select file to encrypt</h4>
+							
+						</div>
+						<div class="card-body">
+
+							
+
+							<form method="post" action="" enctype="multipart/form-data">
+								<div class="form-group">
+									<span class="h2">Symmetric key file encryption</span>
+									<ul>
+										<li>Advanced Encryption Standard(AES) is a symmetric encryption algorithm.</li>
+										<li>AES is the industry standard as of now as it allows 128 bit, 192 bit and 256 bit encryption.</li>
+										<li>Symmetric encryption is very fast as compared to asymmetric encryption and are used in systems such as database system. </li>
+										<li>Following is an online tool to generate AES encrypted password and decrypt AES encrypted password. </li>
+										<li>It provides two mode of encryption and decryption ECB and CBC, OFB, CFB, CTR mode. </li>
+									</ul>
+
+									<details>
+										<summary>
+											Encryption Mode
+										</summary>
+										<span>
+											<ul>
+												<li>CBC: Cipher Block Chaining Mode</li>
+												<li>ECB: Electronic Code Block Mode</li>
+												<li>CFB: Cipher FeedBack Mode</li>
+												<li>OFB: Output FeedBack Mode</li>
+												<li>CTR: CounTeR Mode</li>
+											</ul>
+										</span>
+
+									</details>
+								    
+								</div>
+								
+								<div class="form-group">
+								    <label for="exampleFormControlFile1">Input File</label>
+								    <input type="file" name="plainfile" class="form-control-file" id="exampleFormControlFile1" required>
+								</div>
+								
+								<div class="form-group">
+									<label for="defaultSelect">Select encryption algorithm</label>
+									<select class="form-control form-control" name="enc_alg" id="defaultSelect">
+										{%for alg in aes_alg_list%}
+											<option value="{{alg}}">{{alg}}</option>
+										{%endfor%}
+										
+									</select>
+								</div>
+
+								<div class="form-group">
+									<label for="password">Input password</label>
+									<input type="password" class="form-control" id="password" placeholder="Password" required> 
+								</div>
+
+								<div class="form-group">
+									<label for="password">Confirm Password</label>
+									<input type="password" class="form-control" id="confirm" placeholder="Password" required>
+									
+								</div>
+
+								<script type="text/javascript">
+									function Validate() {
+										var password = document.getElementById("password").value;
+										var confirmPassword = document.getElementById("confirm").value;
+										if (password != confirmPassword) {
+											alert("Passwords do not match.");
+											return false;
+										}
+										return true;
+									}
+								</script>
+
+
+								<div class="form-group">
+									<p class="demo">
+											
+										<button class="btn btn-primary btn-round btn-border" type="submit" name="cipher" value="enc" onclick="return Validate()" > 
+											<span class="btn-label"><i class="fa fa-check"></i></span>
+											Encrypt
+										</button>
+
+		    							<button class="btn btn-secondary  btn-round btn-border" type="submit" name="cipher" value="dec"onclick="return Validate()"  >
+											<span class="btn-label"><i class="fas fa-circle-notch"></i></span>
+											Decrypt
+										</button>
+		
+									</p>
+								</div>
+
+							
+						    </form>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}

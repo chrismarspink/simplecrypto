@@ -1,0 +1,231 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} PKIX: Self-Signed Certificate {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Certificate</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Generator</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Private Key</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card m-0">
+						<div class="card-header">
+							<h4 class="card-title">Generate Private Key</h4>
+						</div>
+
+						<div class="card-body">
+						<form method="post" action="">
+
+							<div class="form-group m-0">
+
+									<div class="form-group">
+										<ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#sscert" role="tab" aria-controls="pills-home" aria-selected="false">Selfsigned-Certificate</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pkey" role="tab" aria-controls="pills-profile" aria-selected="true">Private Key</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#csr" role="tab" aria-controls="pills-contact" aria-selected="false">CSR</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="pills-tabContent">
+
+											<div class="tab-pane fade show active" id="sscert" role="tabpanel" aria-labelledby="pills-home-tab">
+												
+												<p></p>
+												<select class="form-control form-control" id="defaultSelect_RSA" name="newkey">
+													<option value="true">Generate New Private Key</option>
+													<option value="false">Generate Certificate with given Private Key</option>
+												</select>
+												
+												<p></p>
+																									
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">CN/Hostname</span>
+													<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+												</div>
+
+												<p></p>
+																									
+												<div class="input-group-prepend m-0">
+													<span class="input-group-text" id="basic-addon1">Email Address(E)</span>
+													<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+												</div>
+
+												<p></p>
+												<div class="input-group-prepend m-0">
+													<span class="input-group-text" id="basic-addon1">Organization(O)</span>
+													<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+												</div>
+												
+
+												<p></p>
+												<div class="input-group-prepend m-0">
+													<span class="input-group-text" id="basic-addon1">OU</span>
+													<input type="text" class="form-control" placeholder="Organization Unit Name" aria-label="Username" aria-describedby="basic-addon1">
+												</div>
+
+												<p></p>
+												<div class="input-group-prepend m-0">
+													<span class="input-group-text" id="basic-addon1">C</span>
+													<input type="text" class="form-control" placeholder="Country Name(2 char)" aria-label="Username" aria-describedby="basic-addon1">
+												</div>
+
+												<p></p>
+												<div class="input-group-prepend m-0">
+													<span class="input-group-text" id="basic-addon1">Expiration</span>
+													<input type="text" class="form-control" placeholder="365" aria-label="Username" aria-describedby="basic-addon1">
+													<div class="form-group">
+														<div class="selectgroup">
+															<label class="selectgroup-item">
+																<input type="radio" name="value" value="50" class="selectgroup-input" checked="">
+																<span class="selectgroup-button">Years</span>
+															</label>
+															<label class="selectgroup-item">
+																<input type="radio" name="value" value="100" class="selectgroup-input">
+																<span class="selectgroup-button">Days</span>
+															</label>
+														</div>
+													</div>
+												</div>
+
+												<p></p>
+												<div class="input-group-prepend m-0">
+													<span class="input-group-text" id="basic-addon1">Alternative Name</span>
+													<input type="text" class="form-control" placeholder="*.naver.com;*.google.com" aria-label="*.naver.com;*.google.com" aria-describedby="basic-addon1">
+												</div>
+														
+													
+												
+											</div>
+
+											<div class="tab-pane fade m-0" id="pkey" role="tabpanel" aria-labelledby="pills-profile-tab">
+												
+												<div class="form-group m-0">
+													<div class="input-group-prepend  m-0">
+														<span class="input-group-text m-0">Private Key</span>
+													</div>
+													<textarea class="form-control m-0" id="pem-data" rows="10">{{prikey_pem}}</textarea>
+												</div>
+				
+												<div class="form-group  m-0">
+													<div class="input-group-prepend m-0">
+														<span class="input-group-text  m-0">Public Key</span>
+													</div>
+													<textarea class="form-control  m-0" id="pem-data" rows="5">{{pubkey_pem}}</textarea>
+												</div>
+												
+											</div>
+										
+											<div class="tab-pane fade m-10" id="csr" role="tabpanel" aria-labelledby="pills-contact-tab">
+								
+												<div class="form-group m-10">
+													<textarea class="form-control m-10" id="pem-data" rows="10">{{csr_pem}}</textarea>
+												</div>
+												
+											</div>
+										</div>
+									</div>	
+									
+								
+								
+
+								<div class="form-group">
+									<div class="input-group">
+										<input type="password" class="form-control" id="inpass" aria-label="Text input with dropdown button" placeholder="Password">
+										<div class="input-group-append">
+											<button class="btn btn-primary btn-border" type="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Encryption Algorithm</button>
+											<select class="form-control form-control" id="pem_selected" name="pem_type">
+												{% for element in aes_alg_list %}
+      												<option>{{ element  }} </option>
+  												{% endfor %}
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<!--label for="password">Input password</label-->
+									<div class="form-check">
+										<label class="form-check-label">
+											<input class="form-check-input" type="checkbox" name="encrypt_option" value="enc">
+											<span class="form-check-sign">Private key encryption password</span>
+										</label>
+									</div>
+									
+								</div>
+
+								
+								
+
+								<div class="form-group">
+									<p class="demo">
+										<button class="btn btn-primary" type='submit' id='gen_pkey'><span class="btn-label"><i class="fa fa-check"></i></span>
+											Generate Private Key
+										</button>
+
+										<button class="btn btn-primary" type='submit' id='gen_csr'><span class="btn-label"><i class="fa fa-check"></i></span>
+											CSR
+										</button>
+
+										<button class="btn btn-primary" type='submit' id='gen_sscert'><span class="btn-label"><i class="fa fa-check"></i></span>
+											Self-Signed Certificate
+										</button>
+
+		    							<button class="btn btn-secondary"><span class="clear"><i class="fas fa-circle-notch"></i></span>
+											Clear
+										</button>
+									</p>
+								</div>
+
+							</div>
+						</form>
+
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+
+{% endblock javascripts %}
