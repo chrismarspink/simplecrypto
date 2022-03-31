@@ -1,8 +1,0 @@
-This is a FREE and SIMPLE online tools for various cryptography service.
-
-As the communication is increasing rapidly nowadays, there is huge needs for the secure communication ways and cryptography is getting more important.
-This 'Cryptoencode.net' provides a package of various crypto technologies and we want to contribute to reduce your risk from the malicious activities.
-
-For the privacy, we DO NOT inspect or save any uploaded files  and everytime your request job is done, all files will be deleted automatically.
-
- 
