@@ -10,7 +10,7 @@
 	<div class="content">
 		<div class="page-inner">
 			<div class="page-header">
-				<h4 class="page-title">File Encryption</h4>
+				<h4 class="page-title">암/복호화</h4>
 				<ul class="breadcrumbs">
 					<li class="nav-home">
 						<a href="#">
@@ -21,13 +21,13 @@
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">Encrypt/Decrypt</a>
+						<a href="#">암/복호화t</a>
 					</li>
 					<li class="separator">
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">Symmetric</a>
+						<a href="#">대칭키암호화</a>
 					</li>
 				</ul>
 			</div>
@@ -43,7 +43,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Select file to encrypt</h4>
+							<h4 class="card-title">파일 선택</h4>
 							
 						</div>
 						<div class="card-body">
@@ -52,18 +52,15 @@
 
 							<form method="post" action="" enctype="multipart/form-data">
 								<div class="form-group">
-									<span class="h2">Symmetric key file encryption</span>
+									<span class="h2">대칭키 파일 암호화</span>
 									<ul>
-										<li>Advanced Encryption Standard(AES) is a symmetric encryption algorithm.</li>
-										<li>AES is the industry standard as of now as it allows 128 bit, 192 bit and 256 bit encryption.</li>
-										<li>Symmetric encryption is very fast as compared to asymmetric encryption and are used in systems such as database system. </li>
-										<li>Following is an online tool to generate AES encrypted password and decrypt AES encrypted password. </li>
-										<li>It provides two mode of encryption and decryption ECB and CBC, OFB, CFB, CTR mode. </li>
+										<li>표쥰 AES(Advanced Encryption Standard) 알고리즘을 사용하여 파일을 암호화하며 128/192/256비트 키 길이를 선택할 수 았습니다.</li>
+										<li>대칭키는 공개키 알고리즘에 비해 속도가 매우 빠르기 때문이 파일이나 데이터베이스 등 대량의 암호화에 적합합니다. </li>
 									</ul>
 
 									<details>
 										<summary>
-											Encryption Mode
+											암호 모드(Encryption Mode)
 										</summary>
 										<span>
 											<ul>
@@ -80,12 +77,12 @@
 								</div>
 								
 								<div class="form-group">
-								    <label for="exampleFormControlFile1">Input File</label>
+								    <label for="exampleFormControlFile1">파일</label>
 								    <input type="file" name="plainfile" class="form-control-file" id="exampleFormControlFile1" required>
 								</div>
 								
 								<div class="form-group">
-									<label for="defaultSelect">Select encryption algorithm</label>
+									<label for="defaultSelect">알고리즘 선택</label>
 									<select class="form-control form-control" name="enc_alg" id="defaultSelect">
 										{%for alg in aes_alg_list%}
 											<option value="{{alg}}">{{alg}}</option>
@@ -95,12 +92,12 @@
 								</div>
 
 								<div class="form-group">
-									<label for="password">Input password</label>
+									<label for="password">패스워드</label>
 									<input type="password" class="form-control" id="password" placeholder="Password" required> 
 								</div>
 
 								<div class="form-group">
-									<label for="password">Confirm Password</label>
+									<label for="password">패스워드 확인</label>
 									<input type="password" class="form-control" id="confirm" placeholder="Password" required>
 									
 								</div>
@@ -123,12 +120,12 @@
 											
 										<button class="btn btn-primary btn-round btn-border" type="submit" name="cipher" value="enc" onclick="return Validate()" > 
 											<span class="btn-label"><i class="fa fa-check"></i></span>
-											Encrypt
+											암호화
 										</button>
 
 		    							<button class="btn btn-secondary  btn-round btn-border" type="submit" name="cipher" value="dec"onclick="return Validate()"  >
 											<span class="btn-label"><i class="fas fa-circle-notch"></i></span>
-											Decrypt
+											복호화
 										</button>
 		
 									</p>

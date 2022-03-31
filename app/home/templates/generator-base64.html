@@ -21,7 +21,7 @@
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="#">Generators</a>
+						<a href="#">인코더</a>
 					</li>
 					<li class="separator">
 						<i class="flaticon-right-arrow"></i>
@@ -43,13 +43,13 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Base64 Encode/Decode</h4>
+							<h4 class="card-title">Base64 인코딩/디코딩</h4>
 							
 						</div>
 						<div class="card-body">
 							<form method="post" action="">
 								<div class="form-group">
-									<label for="defaultSelect">Algorithm </label>
+									<label for="defaultSelect">알고리즘</label>
 			
 									<select class="form-control form-control" id="alg" name="alg">
 										<option value="b64">Base-64</option>
@@ -84,7 +84,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Result</h4>
+							<h4 class="card-title">인코딩 결과</h4>
 						</div>
 						<div class="card-body">
 							<!--div class="form-group">
@@ -107,32 +107,32 @@
 
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Additonal Information</h4>
+							<h4 class="card-title">추가 정보</h4>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<span class="h4">BASE64 Encoding</span>
-								<p>Base64 encoding schemes are commonly used when there is a need to encode binary data, especially when that data needs to be stored and transferred over media that are designed to deal with text. This encoding helps to ensure that the data remains intact without modification during transport.</p>
-								<p>Base64 is used commonly in a number of applications including email via MIME, as well as storing complex data in XML or JSON.</p>
-								<p>In case of textual data, the encoding scheme does not contain the character set, so you have to specify which character set was used during the encoding process. It is usually UTF-8, but can be many others</p>
-			
-								<span class="h4">Details of the Base64 encoding</span>
+								<span class="h4">BASE64 인코딩</span>
+								<p>Base64 인코딩은 바이너리 데이터를 텍스트로 표현하는데 가장 널리 사용되고 있습니다. 인코딩된 데이터는 바이너리를 전달하기 어려운 상황에서 원본데이터를 전달하는데 유용합니다.</p>
+								<p>이메일 프로토콜에서 사용되고 있으며 UTF-8과 같은 바이너리 데이터 전달에 매우 윺용합니다.</p>
+								
+								<span class="h4">세부사항</span>
 								<ul>
-									<li>Base64 is a generic term for a number of similar encoding schemes that encode binary data by treating it numerically and translating it into a base-64 representation. The Base64 term originates from a specific MIME-content transfer encoding.</li>
-									<p></p>
-									<li>Design</li>
-									<p>The particular choice of characters to make up the 64 characters required for Base64 varies between implementations. The general rule is to choose a set of 64 characters that is both 1) part of a subset common to most encodings, and 2) also printable. This combination leaves the data unlikely to be modified in transit through systems such as email, which were traditionally not 8-bit clean. For example, MIME's Base64 implementation uses A-Z, a-z, and 0-9 for the first 62 values, as well as "+" and "/" for the last two. Other variations, usually derived from Base64, share this property but differ in the symbols chosen for the last two values; an example is the URL and filename safe "RFC 4648 / Base64URL" variant, which uses "-" and "_".</p>
-									<li>Example</li>
-									<p>For example, the following sentence, the slogan of Wikipedia, is</p>
+									
+									
+									<li>설계</li>
+									<p>Base64는 바이너리를 정해진 64개의 글자만을 이용하여 표현합니다. 일반적으로 1) 대부분의 인코딩 규칙에 공통적으로 사용되는 하위 집합의 일부이고 2) 인쇄도 가능한 64자 글자를 이용합니다. 
+										이 조합으로 인해 데이터는 전통적으로 8비트가 아닌 이메일과 같은 시스템을 통해 전송 중에 수정될 가능성이 거의 없습니다. 예를 들어, MIME의 Base64 구현은 처음 62개 값에 A-Z, a-z 및 0-9를 사용하고 마지막 두 값에 "+" 및 "/"를 사용합니다.
+									<li>예제</li>
+									<p>다음은 위키피디아의 사례입니다. </p>
 									<p class="text-primary">Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.</p>
-									<p>It is converted to base 64 through the process described above as follows.</p>
+									<p>위 문장은 base 64를 통해 다음 구문으로 인코딩됩니다.</p>
 									<p class="text-primary">TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0
 										aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1
 										c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0
 										aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl
 										LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=</p>
-									<p>For reference, the process of converting the first word, , Manis as follows.</p>
-									<p>As this example illustrates, Base64 encoding converts 3 uncoded bytes (in this case, ASCII characters) into 4 encoded ASCII characters</p>
+									<p>참고로 문장의 'Man is'룰 인코딩한 예를 아래의 표로 정리했습니다. .</p>
+									<p>이 예에서 알 수 있듯이 Base64 인코딩은 3개의 인코딩되지 않은 바이트(이 경우 ASCII 문자)를 4개의 인코딩된 ASCII 문자로 변환합니다.</p>
 									<div class="container float-left">
 											<img src="/static/assets/img/base64_sample_man.png" width="600" class="img-fluid">
 									</div>
