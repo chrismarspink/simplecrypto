@@ -27,7 +27,7 @@ except KeyError:
     exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
 
 app = create_app( app_config ) 
-app.config['MAX_CONTENT_LENGTH'] = 1 * 1000 * 1000
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1000 * 1000
 Migrate(app, db)
 
 if DEBUG:
