@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     password = Column(String)
     company = Column(String)
     company_name = Column(String)
+    
 
     def __init__(self, **kwargs):
         for property, value in kwargs.items():

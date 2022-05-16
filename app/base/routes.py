@@ -340,6 +340,7 @@ def profile():
             print("%s %s %s" % (pwd_old, pwd_new, pwd_confirm))
         else:
             ##그냥 아무것도 하지 않음.
+            
             return render_template( '/profile.html', success=True)
     
         return render_template( '/profile.html', success=True)
