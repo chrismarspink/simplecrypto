@@ -62,8 +62,6 @@ from app.base.util import hash_pass
 
 from config import config_dict, config
 
-from flask_mail import Mail
-from flask_mail import Message
 
 Version="0.1"
 Version_Date="2022-01-10"
@@ -274,14 +272,7 @@ def register():
 def profile():
     
 
-    msg = Message("test subject",sender="jkkim@test", recipients=['jkkim7202@gmail.com'])
-    msg.body ="hello flask_mail"
-    msg.html = "<b>HTML</b> body"
-    mail=Mail(app)
-    mail.send(msg)
-
-    print("mail sending...")
-
+    
     if request.method == 'POST':
         action = request.form.get('action')
         username = request.form.get('username', 'no')
@@ -340,7 +331,7 @@ def profile():
             print("%s %s %s" % (pwd_old, pwd_new, pwd_confirm))
         else:
             ##그냥 아무것도 하지 않음.
-            
+
             return render_template( '/profile.html', success=True)
     
         return render_template( '/profile.html', success=True)
