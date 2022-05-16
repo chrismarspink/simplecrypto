@@ -55,7 +55,15 @@ import app
 import logging
 import logging.handlers
 
+import csv
+
+
+from app.base.util import hash_pass
+
 from config import config_dict, config
+
+from flask_mail import Mail
+from flask_mail import Message
 
 Version="0.1"
 Version_Date="2022-01-10"
@@ -154,7 +162,7 @@ def route_default():
     return render_template( '/index.html' )
 
 ## Login & Registration
-"""
+
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm(request.form)
@@ -163,9 +171,22 @@ def login():
         # read form data
         username = request.form['username']
         password = request.form['password']
+        print("password : %s" % password)
+        print("password type: %s" % type(password))
 
         # Locate user
         user = User.query.filter_by(username=username).first()
+
+        print("=====login=====")
+        if user and user.username:
+            print(user.username)
+            print(user.email)
+            print(user.password)
+            print(user.company)
+            print(user.company_name)
+        else:
+            print("no user data")
+        print("=====login=====")
         
         # Check the password
         if user and verify_pass( password, user.password):
@@ -179,20 +200,39 @@ def login():
     if not current_user.is_authenticated:
         return render_template( 'accounts/login.html', form=login_form)
     return redirect(url_for('home_blueprint.index'))
-"""
 
+
+"""
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     return redirect(url_for('home_blueprint.index'))
+"""
 
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     login_form = LoginForm(request.form)
     create_account_form = CreateAccountForm(request.form)
+    company_name = None
     if 'register' in request.form:
 
         username  = request.form['username']
         email     = request.form['email'   ]
+        company   = request.form['company'   ]
+
+        #check company code in csv file
+
+        f = open('company.csv', 'r', encoding='utf-8')
+        rdr = csv.reader(f)
+        for line in rdr:
+            print(line)
+            if company == line[1]:
+                print("Weleome: %s" % line[0])
+                company_name = line[0]
+        f.close()   
+
+        if not company_name:
+            company_name = "personal"
+        
 
         # Check usename exists
         user = User.query.filter_by(username=username).first()
@@ -210,12 +250,17 @@ def register():
                                     success=False,
                                     form=create_account_form)
 
+
         # else we can create the user
         user = User(**request.form)
         db.session.add(user)
         db.session.commit()
+
         
-        
+        user2 = User.query.filter_by(username=username).first()
+        user2.company_name = company_name
+        db.session.commit()
+
         return render_template( 'accounts/register.html', 
                                 msg='User created please <a href="/login">login</a>', 
                                 success=True,
@@ -223,6 +268,83 @@ def register():
 
     else:
         return render_template( 'accounts/register.html', form=create_account_form)
+
+
+@blueprint.route('/profile.html', methods=['GET', 'POST'])
+def profile():
+    
+
+    msg = Message("test subject",sender="jkkim@test", recipients=['jkkim7202@gmail.com'])
+    msg.body ="hello flask_mail"
+    msg.html = "<b>HTML</b> body"
+    mail=Mail(app)
+    mail.send(msg)
+
+    print("mail sending...")
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+        username = request.form.get('username', 'no')
+        print("username: %s" % username)
+        
+        email = request.form.get("email")
+        print("email: %s" % email)
+        print("action: %s" % action)
+        
+        if action == 'update':
+            ## email format check --> html 
+            email = request.form.get("email")
+            print("email: %s" % email)
+            user1 = User.query.filter_by(username=username).first()
+            user1.email = email
+            db.session.add(user1)
+            db.session.commit()
+            msg="User profile changed successfully"
+            return render_template( '/profile.html', success=True, msg=msg)
+        elif action == 'change_password':
+            
+            pwd_old = request.form.get("old")
+            print("pwd_old: %s" % pwd_old)
+            
+            user = User.query.filter_by(username=username).first()
+
+            if user and verify_pass( pwd_old, user.password):
+                print("password verify ok")
+            else:
+                return render_template( '/profile.html', success=False, msg="Invalid password")
+
+
+            pwd_new = request.form.get("new", None)
+            pwd_confirm = request.form.get("confirm", None)
+
+            if pwd_new == None or pwd_confirm == None:
+                return render_template( '/profile.html', success=False, msg="Invalid new/confirm password")
+            else:
+                print("pwd_new: %s" % pwd_new)
+                print("pwd_confirm: %s" % pwd_confirm)
+
+            
+
+            if pwd_new != pwd_confirm:
+                print("error: %s" % 'Password and confirm password does not match')
+                return render_template( '/profile.html', success=False, msg="Password and confirm password does not match")
+            else:
+                print("pwd confirmation")
+                user2 = User.query.filter_by(username=username).first()
+                user2.password = hash_pass( pwd_confirm ) #pwd_confirm
+                db.session.add(user2)
+                db.session.commit()
+                return render_template( '/profile.html', success=True, msg="Password changed successfully")
+
+
+            print("%s %s %s" % (pwd_old, pwd_new, pwd_confirm))
+        else:
+            ##그냥 아무것도 하지 않음.
+            return render_template( '/profile.html', success=True)
+    
+        return render_template( '/profile.html', success=True)
+
+    return render_template( '/profile.html', success=True)
 
 
 def get_elliptic_curve_list():
