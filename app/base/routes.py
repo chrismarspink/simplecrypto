@@ -219,7 +219,7 @@ def register():
 
         #check company code in csv file
 
-        f = open('./data/company.csv', 'r', encoding='utf-8')
+        f = open('/data/company.csv', 'r', encoding='utf-8')
         rdr = csv.reader(f)
         for line in rdr:
             print(line)
